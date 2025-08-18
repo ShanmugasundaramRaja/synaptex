@@ -1,6 +1,5 @@
-import React from "react";
-import { useState, useRef, useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import Modal from "./Modal";
 import "../Contact.css";
 import emailjs from "@emailjs/browser";

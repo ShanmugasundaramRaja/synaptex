@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence, color } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import "../Contact2.css";
 import { db, storage } from "../firebase"; // adjust path as needed
 import { collection, addDoc, doc, setDoc, Timestamp } from "firebase/firestore";

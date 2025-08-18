@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { useRef, useState, useEffect } from "react";
+import { Container, Row } from "react-bootstrap";
 import video from "../assets/Synaptexsliderhorizontal.mp4";
 import videoPortrait from "../assets/Synaptexlidervertical.mp4";
 

@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+  --font1: "Poppins";
+ --dark: #000;
+  --maxWidth: 1100px;
+} 
+
+body {
+  margin: 0;
+background: #ffffff;
+background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(156, 156, 156, 1) 100%);
+  font-family: var(--font1);
+  overflow-x: hidden;
+}
+
+.flex, .flex__col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex__col {
+  flex-direction: column;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+main.flex__col {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.menu {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 50%;
+  width: calc(100% - 80px);
+  justify-content: space-between;
+  margin: 40px 0;
+  transform: translatex(-50%);
+}
+
+.menu a {
+  font-size: 1.5vw;
+  font-weight: 600;
+  color: var(--dark);
+  text-decoration: none;
+}
+
+.menu ul {
+  gap: 0 60px;
+}
+
+.menu ul li {
+  display: flex;
+}
+
+.clip {
+  width: 100%;
+  height: 150vh;
+}
+
+.clip__inner {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.clip__inner h1 {
+  align-items: flex-end;
+  height: 15vh;
+  font-size: 8vw;
+  text-align: center;
+  max-width: var(--maxWidth);
+  margin: 5vw 0;
+}
+
+.clip__cols {
+  width: 70vw;
+  height: 45vh;
+  gap: 40px;
+  align-items: flex-start;
+  max-width: var(--maxWidth);
+}
+
+.clip__cols p {
+  font-size: 1.5vw;
+  width: 50%;
+}
+
+.clip__scroll {
+  z-index: 3;
+  width: 100vw;
+  height: 200vh;
+  padding-top: 100vh;
+}
+
+#clip1__scroll {
+  padding-top: 0;
+}
+
+.clip__scroll h2 {
+  color: #fff;
+  font-size: 8vw;
+  margin: 0 0 6vw 0;
+}
+
+.clip__scroll .clip__cols {
+  height: auto;
+}
+
+.clip__scroll p, .clip__scroll a {
+  color: #fff;
+}
+
+#svg__rec, #svg__rec2, #svg__rec3, #svg__rec4 {
+  display: none;
+}
+
+.starSvg {
+  position: fixed;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  width: 200px;
+  height: auto;
+  aspect-ratio: 1/1;
+  transform: translate(-50%, -50%);
+}
+
+#svg1 {clip-path: url(#svg__path)}
+#svg2 {clip-path: url(#svg__path2)}
+#svg3 {clip-path: url(#svg__path3)}
+#svg4 {clip-path: url(#svg__path4)}
+
+.starSvg img, .starSvg video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: auto;
+ 
+  object-fit: contain;
+  transform: translate(-50%,-50%);
+}
+
+@media (orientation: portrait) {
+  .starSvg img, .starSvg video {
+    width: auto;
+    height: 100vh;
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+
+  .menu {
+    width: 90vw;
+    margin: 4vw 0;
+     
+  }
+.menu a{
+  font-size: 3vw!important;
+}
+
+
+  .menu ul {
+    gap: 0 2vw;
+  }
+  .clip__inner h1 {
+    width: 90vw;
+
+    margin: 60px 0;
+  }
+  .clip__cols p {
+  font-size: 2.5vw;
+
+}
+
+
+  .clip__cols {
+    width: 90vw;
+    gap: 10px;
+
+  .clip__cols p {
+    width: 100%;
+  }
+  .starSvg {
+    width: 70px;
+  }
+}
+.starSvg.fullscreen {
+  width: 100vw; /* will be used when expanded */
+  height: auto;
+}
+}
+
+#clip1 .clip__cols p:first-child {
+  margin-right: 10vw; /* pushes left column left */
+}
+#clip1 .clip__cols p:last-child {
+  margin-left: 10vw; /* pushes right column right */
+}
+
+@media (min-width:768px) and (max-width:1024px){
+  #clip1 .clip__cols p:first-child {
+  margin-right: 15vw; /* pushes left column left */
+}
+#clip1 .clip__cols p:last-child {
+  margin-left: 15vw; /* pushes right column right */
+}
+}

@@ -1,0 +1,155 @@
+/* Base nav styles */
+.nav {
+  display: flex;
+  justify-content: end;
+  padding-right: 20px;
+  background-color: transparent;
+  transition: max-height 0.8s ease-in-out;
+  overflow: hidden;
+  z-index: 98;
+}
+
+.btn-12 {
+  background: none;
+  z-index: 5;
+  border: none;
+  color: #e3d9b5;
+  padding: 20px;
+  font-family: Montserrat, sans-serif;
+  font-size: 18px;
+  text-align: center;
+  display: inline-block;
+  letter-spacing: 1px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 1.4s;
+}
+
+.btn-12:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  background: #e3d9b5;
+  left: 45%;
+  height: 2px;
+  bottom: 0;
+  transition: ease-in-out 0.4s;
+  opacity: 0.7;
+}
+
+.btn-12:hover:before {
+  width: 70%;
+  left: 20px;
+}
+
+.btn-12:hover {
+  letter-spacing: 3px;
+  font-size: 20px;
+  color: white;
+}
+
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  padding: 15px 20px;
+  z-index: 10;
+  transition: 0.5s ease-in;
+}
+
+/* Wrapper fix for absolute nav */
+.responsive-navbar {
+  position: relative;
+  z-index: 99;
+}
+
+/* ✅ MOBILE STYLES */
+@media screen and (max-width: 767px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+ background: linear-gradient(90deg, #375d53, #1a1d1e);
+    max-height: 0;
+  }
+
+  .nav.nav-open {
+    max-height: 55vh; /* enough to show all buttons */
+  }
+
+  .btn-12 {
+    width: 100%;
+    text-align: left;
+    padding-left: 30px;
+    padding-right: 0;
+    padding-top:15px;
+    font-size: 12px;
+  }
+
+  .btn-12:hover:before {
+    width: 40%;
+    left: 20px;
+  }
+}
+
+/* ✅ iPad LANDSCAPE STYLES (unchanged) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.8s ease-in-out;
+  }
+
+  .nav.nav-open {
+    max-height: 500px;
+  }
+
+  .btn-12 {
+    width: 100%;
+    text-align: left;
+    padding-left: 30px;
+    padding-right: 0;
+  }
+
+  .btn-12:hover:before {
+    width: 20%;
+    left: 20px;
+  }
+}
+
+/* ✅ Desktop (unchanged or styled as needed) */
+@media only screen and (min-width: 1025px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .nav {
+    flex-direction: row;
+    position: static;
+    max-height: none;
+  }
+
+  .btn-12 {
+    width: auto;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

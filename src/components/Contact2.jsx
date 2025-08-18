@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "../Contact2.css";
 import { db, storage } from "../firebase"; // adjust path as needed
-import { collection, addDoc, doc, setDoc, Timestamp } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { RiUploadCloudFill } from "react-icons/ri";
 import { GoHomeFill } from "react-icons/go";

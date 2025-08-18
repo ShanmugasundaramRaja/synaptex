@@ -1,16 +1,9 @@
 import "../Footer.css";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import text from "../assets/Home.png";
 
 import MiniMap2 from "./Map2";
 export default function Footer() {
-  const [hovering, setHovering] = useState(false);
-  const navigate = useNavigate();
-  const joinus = () => {
-    navigate("/joinus");
-  };
   return (
     <>
       <footer className="custom-footer">
@@ -22,16 +15,16 @@ export default function Footer() {
             <h4>Quick Links</h4>
             <ul>
               <li>
-                <a href="#">Home</a>
+                <a>Home</a>
               </li>
               <li>
-                <a href="#">About</a>
+                <a>About</a>
               </li>
               <li>
-                <a href="#">Services</a>
+                <a>Services</a>
               </li>
               <li>
-                <a href="#">Contact</a>
+                <a>Contact</a>
               </li>
             </ul>
           </div>
@@ -39,16 +32,16 @@ export default function Footer() {
             <h4>Resources</h4>
             <ul>
               <li>
-                <a href="#">Blog</a>
+                <a>Blog</a>
               </li>
               <li>
-                <a href="#">Privacy Policy</a>
+                <a>Privacy Policy</a>
               </li>
               <li>
-                <a href="#">Terms</a>
+                <a>Terms</a>
               </li>
               <li>
-                <a href="#">Support</a>
+                <a>Support</a>
               </li>
             </ul>
           </div>

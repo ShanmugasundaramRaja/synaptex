@@ -39,6 +39,7 @@ export default function Slider() {
             loop
             playsInline
             className="responsive-video "
+            style={{ paddingLeft: 0, paddingRight: 0 }}
           />
         </Row>
       </Container>

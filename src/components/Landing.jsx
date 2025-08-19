@@ -1,5 +1,4 @@
 import { Container, Row } from "react-bootstrap";
-
 import What from "./What";
 import Nav from "./Nav";
 import Footer from "./Footer";

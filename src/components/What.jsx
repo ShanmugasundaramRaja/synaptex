@@ -43,6 +43,7 @@ export default function What({ section1Ref }) {
             loop
             playsInline
             className="responsive-video "
+            style={{ paddingLeft: 0, paddingRight: 0 }}
           />
         </Row>
       </Container>

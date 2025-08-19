@@ -6,7 +6,6 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { RiUploadCloudFill } from "react-icons/ri";
 import { GoHomeFill } from "react-icons/go";
-import thread from "../assets/Home (3).png";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
 
@@ -667,7 +666,12 @@ const Contact2 = () => {
   };
   return (
     <>
-      <img src={thread} alt="" className="rotate-layer2" />
+      <img
+        src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Home%20(3).png"
+        alt=""
+        className="rotate-layer2"
+        loading="lazy"
+      />
       <div className="homebutrow">
         <GoHomeFill style={{ color: "beige" }} size={30} />
         <button className=" btn-12 " onClick={handlehome}>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Scroll</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <link rel="stylesheet" href="/starscroll.css"> <!-- your CSS file -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://assets.codepen.io/16327/MorphSVGPlugin3.min.js"></script>
+</head>
+<body>
+    <main class="flex__col">
+  <nav class="menu flex">
+    <a href="#" class="menu__left">
+    
+    </a>
+    <ul class="menu__right flex">
+      <li><a href="/">Home</a></li>
+       <li><a href="/products">Products</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </nav>
+  <section class="clip" id="clip1">
+    <div class="clip__inner flex__col">
+      <h1 class="flex">Introduction</h1>
+      <div class="clip__cols flex">
+        <p>
+SYNAPTEX was born of a simple idea:<br/>
+Forging pathways between textile makers and textile markets — so great textiles never get lost in the noise of global trade and great traders meet great suppliers to create lasting partnerships built on quality and trust.
+          
+        </p>
+        <p>
+         Founded by third-generation textile expert from India, shaped by decades of inherited knowledge in grey fabric manufacturing — Synaptex is where deep connection meets future demand. 
+        
+          
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="clip__scroll flex__col" id="clip1__scroll">
+    <h2>Organization</h2>
+    <div class="clip__cols flex">
+      <p>Headquartered in Germany and operating across Europe, the agency brings regional fluency in Europe's socio-economic and political landscape to every sourcing decision.        <br/><br/>
+       
+      </p>
+      <p>
+   We saw a gap: exceptional, handcrafted textiles were missing their global stage, even as international buyers sought dependable partners who could meet evolving market demands with innovation, integrity, and seasoned experience. A partner that feels seamlessly integrated, working hand in hand as a natural extension of their team.
+    
+      </p>
+    </div>
+  </section>
+  <section class="clip__scroll flex__col" id="clip2__scroll">
+    <h2>Functions</h2>
+    <div class="clip__cols flex">
+      <p>
+We are the smarter bridge — one that connects craftsmanship with commerce, and local excellence with global demand.        
+        As a full-spectrum textile solutions partner, Synaptex bridges the gap between skilled manufacturers and discerning international buyers. 
+      </p>
+      <p>
+      From home textiles to fashion basics, performance wear, and infant apparel, we offer a unified, intelligent solution that simplifies sourcing without compromising on quality, integrity, or accountability.
+      </p>
+    </div>
+  </section>
+  <section class="clip__scroll flex__col" id="clip3__scroll">
+    <h2>Vision</h2>
+    <div class="clip__cols flex">
+      <p>
+While our core lies in intelligent sourcing and strategic matchmaking, as part of our full-spectrum approach, Synaptex occasionally imports select, curated textile products    
+       
+      </p>
+      <p>
+        This gives us the flexibility to handle multifaceted sourcing challenges, adjust to shifting market dynamics, manage supply chain complexities, streamline delivery timelines, balance diverse supplier capabilities, and meet evolving customer expectations efficiently.
+      </p>
+    </div>
+  </section>
+  <section class="clip__scroll flex__col" id="clip4__scroll">
+    <h2>Mission</h2>
+    <div class="clip__cols flex">
+      <p>
+From fiber to finished product, Synaptex unites the entire textile ecosystem — woven and knit — under one refined umbrella, delivering end-to-end sourcing solutions with seamless sophistication.        
+     
+      </p>
+      <p>
+     We believe in International alliance building — connecting excellence at the source with demand at scale. Whether you're a buyer seeking consistency and authenticity, or a supplier aiming to access the right markets, Synaptex brings both sides together with precision, purpose, and trust.
+      </p>
+    </div>
+  </section>
+  <figure class="starSvg" id="svg1">
+    <svg height="0" width="0">
+      <defs>
+        <clipPath id="svg__path" clipPathUnits="objectBoundingBox">
+          <path id="svg__rec" data-name="rec" d="M0,0H1V1H0Z"/>
+          <path id="svg__star" data-name="star" d="M 0,0 
+L 0,1 
+L 0.6,1 
+C 0.85,1 1,0.8 1,0.5 
+C 1,0.2 0.85,0 0.6,0 
+Z "/>
+        </clipPath>
+      </defs>
+    </svg>
+  
+
+    <!--<img src="https://images.unsplash.com/photo-1681206691902-14878e9c28db?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80">-->
+    <video loop autoplay muted  preload="none" playsinline poster="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwposter1.jpg">
+      <source src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwvideo1.mp4" type="video/mp4">
+    </video>
+  </figure>
+  <figure class="starSvg" id="svg2">
+    <svg height="0" width="0">
+      <defs>
+        <clipPath id="svg__path2" clipPathUnits="objectBoundingBox">
+          <path id="svg__rec2" data-name="rec2" d="M0,0H1V1H0Z"/>
+          <path id="svg__star2" data-name="star2" d="M0.5,0 A0.5,0.5 0 1,1 0.5,1 A0.5,0.5 0 1,1 0.5,0 Z "/>
+        </clipPath>
+      </defs>
+    </svg>
+    <!--<img src="https://images.unsplash.com/photo-1681140348839-42def79675a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80">-->
+    <video loop autoplay muted playsinline  preload="none" poster="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwposter2.jpg">
+      <source src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwvideo2.mp4" type="video/mp4">
+    </video>
+  </figure>
+  <figure class="starSvg" id="svg3">
+    <svg height="0" width="0">
+      <defs>
+        <clipPath id="svg__path3" clipPathUnits="objectBoundingBox">
+          <path id="svg__rec3" data-name="rec3" d="M0,0H1V1H0Z"/>
+          <path id="svg__star3" data-name="star3" d="M0,0 H1 V0.20 H0.25 V0.40 H0.85 V0.6 H0.25 V1 H0 Z "/>
+        </clipPath>
+      </defs>
+    </svg>
+    <!--<img src="https://images.unsplash.com/photo-1681140348839-42def79675a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80">-->
+    <video loop autoplay muted playsinline  preload="none" poster="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwposter3.jpg">
+      <source src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwvideo3.mp4" type="video/mp4">
+    </video>
+  </figure>
+  <figure class="starSvg" id="svg4">
+    <svg height="0" width="0">
+      <defs>
+        <clipPath id="svg__path4" clipPathUnits="objectBoundingBox">
+          <path id="svg__rec4" data-name="rec4" d="M0,0H1V1H0Z"/>
+          <path id="svg__star4" data-name="star4" d="M 0.5 0.0391 C 0.4727 0.2148 0.4492 0.3203 0.3828 0.3828 C 0.3203 0.4492 0.2148 0.4727 0.0391 0.5 C 0.2148 0.5273 0.3203 0.5508 0.3828 0.6172 C 0.4492 0.6797 0.4727 0.7852 0.5 0.9609 C 0.5273 0.7852 0.5508 0.6797 0.6172 0.6172 C 0.6797 0.5508 0.7852 0.5273 0.9609 0.5 C 0.7852 0.4727 0.6797 0.4492 0.6172 0.3828 C 0.5508 0.3203 0.5273 0.2148 0.5 0.0391 Z Z Z Z Z "/>
+        </clipPath>
+      </defs>
+    </svg>
+    <!--<img src="https://images.unsplash.com/photo-1681140348839-42def79675a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80">-->
+    <video loop autoplay muted playsinline  preload="none" poster="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwposter4.jpg">
+      <source src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwvideo4.mp4" type="video/mp4">
+    </video>
+  </figure>
+</main>
+    <script src="/starscroll.js"></script>
+
+</body>
+</html>

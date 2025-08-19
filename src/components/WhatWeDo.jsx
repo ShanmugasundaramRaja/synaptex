@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
 import { Row } from "react-bootstrap";
 import "../WhatWeDo.css";
-import video1 from "../assets/6.mp4";
-import video2 from "../assets/8.mp4";
-import video3 from "../assets/10.mp4";
-import video4 from "../assets/12.mp4";
-import WhyUs from "../assets/WhyUs.png";
 import { useNavigate } from "react-router-dom";
 import { GoHomeFill } from "react-icons/go";
 import {
@@ -67,47 +62,56 @@ export default function Segment1({ section2Ref }) {
           checked={selected === "four"}
         />
 
-        <img src={WhyUs} className="WhyUs" alt="title" />
+        <img
+          src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/WhyUs.png"
+          className="WhyUs"
+          alt="title"
+          loading="lazy"
+        />
 
         <main id="carousel">
           <div className="item">
             <video
-              src={video1} // adjust the path as needed
+              src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/6.mp4" // adjust the path as needed
               autoPlay
               muted
               loop
               playsInline
               className="cardVideo"
+              preload="none"
             />
           </div>
           <div className="item item2">
             <video
-              src={video2} // adjust the path as needed
+              src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/8.mp4" // adjust the path as needed
               autoPlay
               muted
               loop
               playsInline
               className="cardVideo"
+              preload="none"
             />
           </div>
           <div className="item item3">
             <video
-              src={video3} // adjust the path as needed
+              src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/10.mp4" // adjust the path as needed
               autoPlay
               muted
               loop
               playsInline
               className="cardVideo"
+              preload="none"
             />
           </div>
           <div className="item item4">
             <video
-              src={video4} // adjust the path as needed
+              src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/12.mp4" // adjust the path as needed
               autoPlay
               muted
               loop
               playsInline
               className="cardVideo"
+              preload="none"
             />
           </div>
         </main>

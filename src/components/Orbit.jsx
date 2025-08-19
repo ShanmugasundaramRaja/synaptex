@@ -2,7 +2,6 @@ import React from "react";
 import "../Orbit.css";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Whatsnext from "../assets/Whatsnext.png";
 
 export default function Orbit() {
   const navigate = useNavigate();
@@ -14,7 +13,11 @@ export default function Orbit() {
   };
   return (
     <Container fluid className="orbitfluid">
-      <img src={Whatsnext} className="Whatsnext" alt="title" />
+      <img
+        src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Whatsnext.png"
+        className="Whatsnext"
+        alt="title"
+      />
       <div className="orbitcontainer">
         <div className="orbitcircle">
           <div className="orbit orbit-top">

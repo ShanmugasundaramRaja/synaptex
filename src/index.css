@@ -1,13 +1,13 @@
 @font-face {
   font-family: 'Safira March';
-  src: url('../src/assets/SafiraMarch.ttf') format('truetype');
+  src: url('https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/SafiraMarch.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Black Pen Script';
-  src: url('../src/assets/Black Pen.ttf') format('truetype');
+  src: url('https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Black%20Pen.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }

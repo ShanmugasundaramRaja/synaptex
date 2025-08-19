@@ -141,3 +141,8 @@ h4{
   height: auto;
 }
 }
+
+.footp:hover{
+cursor: pointer;
+text-decoration: underline;
+}

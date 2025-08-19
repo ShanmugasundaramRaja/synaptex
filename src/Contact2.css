@@ -39,7 +39,7 @@ body {
 	/*stacking fieldsets above each other*/
 
   background: linear-gradient(rgba(48, 47, 47, 0.5), rgba(99, 98, 98, 0.5)),
-  url(../src/assets/green.jpg);
+  url("https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/green.jpg");
 background-size: cover;
 background-position: center;
   border-radius: 20px;

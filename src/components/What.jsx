@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
-import video from "../assets/WhatWeDo.mp4";
-import videoPortrait from "../assets/WhatWeDoPortrait.mp4";
 
 export default function What({ section1Ref }) {
-  const [videoSrc, setVideoSrc] = useState(video);
+  const [videoSrc, setVideoSrc] = useState(
+    "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/WhatWeDo.mp4"
+  );
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -15,7 +15,11 @@ export default function What({ section1Ref }) {
       const { innerWidth: width, innerHeight: height } = window;
       const isPortraitRatio = height > 2 * width;
 
-      setVideoSrc(isPortraitRatio ? videoPortrait : video);
+      setVideoSrc(
+        isPortraitRatio
+          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/WhatWeDoPortrait.mp4"
+          : "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/WhatWeDo.mp4"
+      );
     };
 
     updateVideoSrc(); // Initial check
@@ -31,6 +35,7 @@ export default function What({ section1Ref }) {
       <Container ref={section1Ref} fluid>
         <Row>
           <video
+            preload="none"
             ref={videoRef}
             src={videoSrc} // adjust the path as needed
             autoPlay

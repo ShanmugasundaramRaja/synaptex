@@ -1,6 +1,6 @@
 $(window).load(function(){
 	
-	var imgPath = "newsassets/img/";
+	var imgPath = "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/newsassets/img/";
 	
 	// Define 6 paper covers:
 	

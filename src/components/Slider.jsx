@@ -1,10 +1,10 @@
 import { useRef, useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
-import video from "../assets/Synaptexsliderhorizontal.mp4";
-import videoPortrait from "../assets/Synaptexlidervertical.mp4";
 
 export default function Slider() {
-  const [videoSrc, setVideoSrc] = useState(video);
+  const [videoSrc, setVideoSrc] = useState(
+    "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Synaptexsliderhorizontal.mp4"
+  );
   const videoRef = useRef(null);
   useEffect(() => {
     if (videoRef.current) {
@@ -14,7 +14,11 @@ export default function Slider() {
       const { innerWidth: width, innerHeight: height } = window;
       const isPortraitRatio = height > 2 * width;
 
-      setVideoSrc(isPortraitRatio ? videoPortrait : video);
+      setVideoSrc(
+        isPortraitRatio
+          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Synaptexlidervertical.mp4"
+          : "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Synaptexsliderhorizontal.mp4"
+      );
     };
 
     updateVideoSrc(); // Initial check
@@ -27,6 +31,7 @@ export default function Slider() {
       <Container fluid>
         <Row>
           <video
+            preload="none"
             ref={videoRef}
             src={videoSrc} // adjust the path as needed
             autoPlay

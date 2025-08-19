@@ -1,6 +1,5 @@
 import "../Footer.css";
-
-import text from "../assets/Home.png";
+import { Link } from "react-router-dom";
 
 import MiniMap2 from "./Map2";
 export default function Footer() {
@@ -9,22 +8,26 @@ export default function Footer() {
       <footer className="custom-footer">
         <div className="footer-row">
           <div className="footer-col image-col">
-            <img src={text} alt="Logo" />
+            <img
+              src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Home.png"
+              alt="Logo"
+              loading="lazy"
+            />
           </div>
           <div className="footer-col">
             <h4>Quick Links</h4>
             <ul>
               <li>
-                <a>Home</a>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <a>About</a>
+                <Link to="/aboutus">About Us</Link>
               </li>
               <li>
-                <a>Services</a>
+                <Link to="/whyus">Services</Link>
               </li>
               <li>
-                <a>Contact</a>
+                <Link to="/contact">Contact</Link>
               </li>
             </ul>
           </div>
@@ -32,16 +35,16 @@ export default function Footer() {
             <h4>Resources</h4>
             <ul>
               <li>
-                <p>Blog</p>
+                <p className="footp">Blog</p>
               </li>
               <li>
-                <p>Privacy Policy</p>
+                <p className="footp">Privacy Policy</p>
               </li>
               <li>
-                <p>Terms</p>
+                <p className="footp">Terms</p>
               </li>
               <li>
-                <p>Support</p>
+                <p className="footp">Support</p>
               </li>
             </ul>
           </div>

@@ -2,10 +2,9 @@
   command = "npm ci && npm run build"
   publish = "build"
 
-  [build.environment]
+[build.environment]
   NODE_VERSION = "22.16.0"
-    SECRETS_SCAN_ENABLED = false
-
+  SECRETS_SCAN_ENABLED = "false"  # must be a string
 
 [[redirects]]
   from = "/*"

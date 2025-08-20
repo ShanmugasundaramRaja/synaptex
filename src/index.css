@@ -26,7 +26,7 @@ html, body {
 /* ================= Landing Section ================= */
 .landing {
   background: linear-gradient(90deg, #375d53, #1a1d1e);
-  min-height: 110vh;
+
 }
 
 @media(max-width: 1024px) {

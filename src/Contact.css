@@ -331,11 +331,17 @@ transition: color 0.6s ease-in;
   background: linear-gradient(92.83deg, #e3d9b5  0%, rgb(251, 250, 249) 100%);
 }
 
-@media (max-width: 768px){
+@media (max-width: 500px){
  .masked-text {
     font-size: 3rem;
   }
 }
+@media (max-width: 768px) and (min-width:500px){
+ .masked-text {
+    font-size: 5rem;
+  }
+}
+
 
 
 @media (max-width: 1024px) and (min-width:768px) {

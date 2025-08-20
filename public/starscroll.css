@@ -217,3 +217,10 @@ main.flex__col {
   margin-left: 15vw; /* pushes right column right */
 }
 }
+/* Loader overlay */
+@media screen and (min-width: 600px)and (max-width:1200px) and (min-height:601px){
+  .clip__cols p {
+  font-size: 2.3vw;
+  width: 50%;  
+  }
+}

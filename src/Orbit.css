@@ -1,12 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 .orbitfluid {
   margin: 0;
-  height: 80vh;
+  height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
  background: linear-gradient(90deg, #264139, #1a1d1e);
-  overflow: hidden;
+
 }
 
 /* Base orbit container */
@@ -62,10 +62,11 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   background-size: cover;
   background-position: center;
   color: white;
-  border-radius: 20px;
-  padding: 12px 24px;
+  border-radius: 15px;
+ 
   font-size: 16px;
   cursor: pointer;
+   height:8vh;width:12vw;
   transition: background 0.4s ease, color 0.3s ease;
 }
 
@@ -103,7 +104,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   }
 
   .orbitbtn {
-    padding: 10px 20px;
+   height:8vh;width:16vw;
     font-size: 14px;
   }
 
@@ -120,10 +121,13 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     width: var(--circle-size);
     height: var(--circle-size);
   }
-
+.orbitfluid{
+  height: 40vh;
+}
   .orbitbtn {
-    padding: 8px 16px;
-    font-size: 12px;
+     font-size: 10px;
+ 
+       height:8vh;width:16vw;
   }
 
   @keyframes revolve {
@@ -141,8 +145,8 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   }
 
   .orbitbtn {
-    padding: 6px 12px;
-    font-size: 10px;
+ 
+    font-size: 8px;
   }
 
   @keyframes revolve {
@@ -169,11 +173,11 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 @media(max-width:1024px){
 .Whatsnext{
 height: 10vh;
-margin-bottom: 60vh;
+
 }
 }@media(max-width:767px){
 .Whatsnext{
-margin-bottom: 60vh;
+margin-bottom: 25vh;
 height: 7vh;
 }
 }

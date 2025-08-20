@@ -6,6 +6,7 @@ import Certificates from "./Certificates";
 import Slider from "./Slider";
 import Address from "./Address";
 import Orbit from "./Orbit";
+import Home from "./Home";
 
 export default function Landing({
   onScrollToSection1,
@@ -26,18 +27,7 @@ export default function Landing({
           onScrollToSection4={onScrollToSection4}
         />
         <Row>
-          <img
-            src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Home.png"
-            alt=""
-            className="hero-section"
-            loading="lazy"
-          />
-          <img
-            src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Home%20(1).png"
-            className="rotate-layer"
-            alt="Rotating Graphic"
-            loading="lazy"
-          />
+          <Home />
         </Row>
       </Container>
       <Container className="landing" fluid>

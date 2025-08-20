@@ -1,23 +1,18 @@
 import { useRef, useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
 
-export default function Slider() {
-  const [videoSrc, setVideoSrc] = useState(
-    "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Synaptexsliderhorizontal.mp4"
-  );
-  const videoRef = useRef(null);
+export default function Home() {
+  const [videoSrc, setVideoSrc] = useState("newsassets/img/Home.mp4");
+
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.8; // Slow down to 50%
-    }
     const updateVideoSrc = () => {
       const { innerWidth: width, innerHeight: height } = window;
       const isPortraitRatio = height > 1.3 * width;
 
       setVideoSrc(
         isPortraitRatio
-          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Synaptexlidervertical.mp4"
-          : "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Synaptexsliderhorizontal.mp4"
+          ? "newsassets/img/Homeportrait.mp4"
+          : "newsassets/img/Home.mp4"
       );
     };
 
@@ -32,7 +27,6 @@ export default function Slider() {
         <Row>
           <video
             preload="none"
-            ref={videoRef}
             src={videoSrc} // adjust the path as needed
             autoPlay
             muted

@@ -8,11 +8,7 @@ export default function Footer() {
       <footer className="custom-footer">
         <div className="footer-row">
           <div className="footer-col image-col">
-            <img
-              src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Home.png"
-              alt="Logo"
-              loading="lazy"
-            />
+            <img src="newsassets/img/Home.png" alt="Logo" loading="lazy" />
           </div>
           <div className="footer-col">
             <h4>Quick Links</h4>

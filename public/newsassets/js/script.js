@@ -14,31 +14,31 @@ var imgPath = "/newsassets/img/";
 			line1:"SYNAPTEX",
 			line2:"making waves",
 			subtitle:"Expanding to Eastern Europe",
-			centerImage: "paper_center 2.jpg"
+			centerImage: "paper_center2.jpg"
 		}, 
 		{
 			line1:"SYNAPTEX",
 			line2:"now a Quality Controller",
 			subtitle:"Best compliance standards in Europe",
-			centerImage: "paper_center 3.jpg"
+			centerImage: "paper_center3.jpg"
 		},
 		{
 			line1:"SYNAPTEX",
 			line2:"Your Forwarding Experts",
 			subtitle:"Consult to ship today!",
-			centerImage: "paper_center 4.jpg"
+			centerImage: "paper_center4.jpg"
 		},
 		{
 			line1:"SYNAPTEX",
 			line2:"Takes on Insurance",
 			subtitle:"Maritime, In-land, On-Road insurance suggestions",
-			centerImage: "paper_center 5.jpg"
+			centerImage: "paper_center5.jpg"
 		},
 		{
 			line1:"SYNAPTEX",
 			line2:"enters warehousing",
 			subtitle:"Flexible Warehousing made possible",
-			centerImage: "paper_center 6.jpg"
+			centerImage: "paper_center6.jpg"
 		}
 	];
 

@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
 
 export default function Home() {
-  const [videoSrc, setVideoSrc] = useState("newsassets/img/Home.mp4");
+  const [videoSrc, setVideoSrc] = useState("/newsassets/img/Home.mp4");
 
   useEffect(() => {
     const updateVideoSrc = () => {
@@ -11,8 +11,8 @@ export default function Home() {
 
       setVideoSrc(
         isPortraitRatio
-          ? "newsassets/img/Homeportrait.mp4"
-          : "newsassets/img/Home.mp4"
+          ? "/newsassets/img/Homeportrait.mp4"
+          : "/newsassets/img/Home.mp4"
       );
     };
 

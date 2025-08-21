@@ -19,6 +19,8 @@
 .image-col img {
   max-width: 100%;
   height: auto;
+  display: block;
+  margin-left: 0; /* Removed transform shifting */
 }
 
 .newsletter-container {
@@ -48,7 +50,7 @@
 }
 
 .footer-col ul {
-  list-style: none; /* Remove bullet points */
+  list-style: none;
   padding: 0;
   margin: 0;
 }
@@ -69,15 +71,42 @@
   text-decoration: underline;
 }
 
+.footp:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 
+/* iPad and small desktop */
+@media (max-width: 1280px) {
+  .footer-col {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .newsletter-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .newsletter-input,
+  .newsletter-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* Keep map/video visible on iPads */
+  .map-col {
+    display: block;
+  }
+
+  /* iPad logo spacing */
+  .image-col img {
+    margin-left: 0; /* No more transform */
+  }
+}
+
+/* iPad portrait */
 @media (max-width: 1024px) {
-  /* iPad portrait styles */
-  /* Styles that are specific to iPad in portrait mode */
-    .image-col img {
- transform: translate(-40px);
-}
- 
-
   .footer-col {
     width: 100%;
     max-width: 400px;
@@ -94,55 +123,30 @@
     max-width: 300px;
   }
 
-
-
-
-}
-@media only screen and (min-width: 1025px) and (max-width: 1280px) {
-  /* iPad landscape styles */
-  /* Styles that are specific to iPad in landscape mode */
-      .image-col img {
- transform: translate(-40px);
+  .image-col img {
+    margin-left: 0;
+  }
 }
 
+/* Mobile */
+@media (max-width: 767px) {
   .footer-col {
-    width: 100%;
-    max-width: 400px;
+    font-size: 7px;
+    min-width: 50px;
   }
 
-  .newsletter-container {
-    flex-direction: column;
-    align-items: center;
+  h4 {
+    font-size: 10px;
   }
 
-  .newsletter-input,
-  .newsletter-btn {
-    width: 100%;
-    max-width: 300px;
+  .image-col img {
+    max-width: 100%;
+    height: auto;
   }
 }
-
-@media(max-width:1280px){
+/* Hide map only on mobile */
+@media(max-width:1200px){
   .map-col{
     display: none;
   }
-}
-
-@media(max-width:767px){
-  .footer-col {
- font-size:7px;
-   min-width: 50px;
-}
-h4{
-  font-size:10px
-}
-.image-col img {
-  max-width: 100%;
-  height: auto;
-}
-}
-
-.footp:hover{
-cursor: pointer;
-text-decoration: underline;
 }

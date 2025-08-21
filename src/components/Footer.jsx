@@ -1,6 +1,6 @@
 import "../Footer.css";
 import { Link } from "react-router-dom";
-
+import Logo from "../assets/Home.png";
 import MiniMap2 from "./Map2";
 export default function Footer() {
   return (
@@ -8,7 +8,7 @@ export default function Footer() {
       <footer className="custom-footer">
         <div className="footer-row">
           <div className="footer-col image-col">
-            <img src="/newsassets/img/Home.png" alt="Logo" loading="lazy" />
+            <img src={Logo} alt="Logo" loading="lazy" />
           </div>
           <div className="footer-col">
             <h4>Quick Links</h4>

@@ -1,151 +1,114 @@
-
-
-*{
-	margin:0;
-	padding:0;
+/* Reset all margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-
-
-
-html{
-	background:black}
-
-
-a{
-	text-decoration: none!important;
-}
-.whyhome{
-   
-            background: none;
-            outline: none;
-            border-radius: 25px;
-            border: solid 2px beige;
-            color: beige;
-            padding: 10px;
-            transition:background 0.5s ease-in;
-			position: fixed;
-			top:2vh;
-			right:2vw
-        
-}
-.whyhome:hover{
-  color: #000000;
-  background: beige;
-  translate: (10px);
+/* Background */
+html {
+    background: black;
 }
 
-/*----------------------------
-		Headers
+/* Links */
+a {
+    text-decoration: none !important;
+}
+
+/* Home button */
+.whyhome {
+    background: none;
+    outline: none;
+    border-radius: 25px;
+    border: solid 2px beige;
+    color: beige;
+    padding: 10px;
+    transition: background 0.5s ease-in;
+    position: fixed;
+    top: 2vh;
+    right: 2vw;
+    z-index: 10;
+}
+
+.whyhome:hover {
+    color: #000000;
+    background: beige;
+    translate: (10px);
+}
+
+/* Logo image */
+#fin {
+    object-fit: contain;
+    width: 70vw;
+    height: auto;
+    display: none;
+    position: fixed;
+    top: 10vh;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+/* Preload Anton font */
+#fontPreload {
+    font-family: 'Anton';
+    visibility: hidden;
+    position: absolute;
+}
+
+/* ----------------------------
+   Canvas Animations
 -----------------------------*/
-
-
-#fin{
-	object-fit: contain;
-	width: 70vw;
-	height: auto;
-	display:none;
-	position: fixed;
-	top:10vh;
-	left:9vw
+canvas {
+    position: fixed;
+    opacity: 0;
+    width: 80vw;      /* responsive width */
+    height: auto;     /* auto height keeps aspect ratio */
+    top: 50%;         
+    left: 50%;        
+    transform: translate(-50%, -50%); /* dynamically center */
+    z-index: 1;
+    animation: newspin 6s linear forwards;
 }
 
-#fontPreload{
-	font-family:'Anton';
-	visibility:hidden;
-	position:absolute;
+/* Keyframes with exit motion */
+@keyframes newspin {
+    0% {
+        opacity: 0.2;
+        transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+    }
+    15% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(1090deg);
+    }
+    90% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(1090deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, 500%) scale(1) rotate(1090deg); /* move off-screen */
+    }
 }
 
-
-/*----------------------------
-	  Canvas Animations
+/* ----------------------------
+   Responsiveness
 -----------------------------*/
-
-
-canvas{
-	position:fixed;
-	width:717px;
-	height:526px;
-	
-	top:50%;
-	left:50%;
-	
-	margin:-263px 0 0 -358px;
-	opacity:0;
-	
-	/* Configure the animation for Firefox */
-	-moz-animation-duration:6s;
-	-moz-animation-name:spin;
-	-moz-animation-timing-function:linear;
-	
-	/* Configure it for Chrome and Safari */
-	-webkit-animation-duration:6s;
-	-webkit-animation-name:newspin;
-	-webkit-animation-timing-function:linear;
-}
-
-@-moz-keyframes newspin{
-	0%{
-		opacity:0.2;
-		-moz-transform:scale(0.2) rotate(0deg);
-	}
-	
-	15%{
-		opacity:1;
-		margin:-263px 0 0 -358px;
-		-moz-transform:scale(1) rotate(1090deg);
-	}
-	
-	90%{
-		opacity:1;
-		top:50%;
-		-moz-transform:scale(1) rotate(1090deg);
-	}
-	
-	100%{
-		top:500%;
-		opacity:1;
-		-moz-transform:scale(1) rotate(1090deg);
-	}
-}
-
-@-webkit-keyframes newspin{
-	0%{
-		opacity:0.2;
-		-webkit-transform:scale(0.2) rotate(0deg);
-	}
-	15%{
-		opacity:1;
-		margin:-263px 0 0 -358px;
-		-webkit-transform:scale(1) rotate(1090deg);
-	}
-	90%{
-		opacity:1;
-		top:50%;
-		-webkit-transform:scale(1) rotate(1090deg);
-	}
-	
-	100%{
-		top:500%;
-		opacity:1;
-		-webkit-transform:scale(1) rotate(1090deg);
-	}
-}
-
-
-
-/*----------------------------
-	The Footer
------------------------------*/
-
-
-
 @media (max-width: 600px) {
-  canvas { width: 95vw; height: auto; }
+    canvas {
+        width: 95vw;
+    }
 }
+
 @media (min-width: 601px) and (max-width: 1200px) {
-  canvas { height: auto; }
+    canvas {
+        width: 80vw;
+    }
 }
+
 @media (min-width: 1201px) {
-  canvas { width: 717px; height: 526px; }
+    canvas {
+        width: 717px;
+        height: 526px;
+    }
 }

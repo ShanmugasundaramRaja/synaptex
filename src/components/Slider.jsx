@@ -26,19 +26,26 @@ export default function Slider() {
     window.addEventListener("resize", updateVideoSrc);
     return () => window.removeEventListener("resize", updateVideoSrc);
   }, []);
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+      videoRef.current.play().catch(() => {
+        console.log("Autoplay blocked on iOS, muted is required");
+      });
+    }
+  }, [videoSrc]);
   return (
     <>
       <Container fluid>
         <Row>
           <video
-            preload="none"
+            preload="metadata"
             ref={videoRef}
             src={videoSrc} // adjust the path as needed
             autoPlay
             muted
             loop
             playsInline
-            className="responsive-video "
             style={{ paddingLeft: 0, paddingRight: 0 }}
           />
         </Row>

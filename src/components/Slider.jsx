@@ -39,7 +39,7 @@ export default function Slider() {
       <Container fluid>
         <Row>
           <video
-            preload="metadata"
+            preload="none"
             ref={videoRef}
             src={videoSrc} // adjust the path as needed
             autoPlay

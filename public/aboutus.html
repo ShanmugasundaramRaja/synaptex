@@ -15,29 +15,27 @@
 <body>
   
   <!-- Centralized clipPath defs (fixes Firefox) -->
-  <svg width="0" height="0" style="position:absolute">
-    <defs>
-      <clipPath id="svg__path" clipPathUnits="objectBoundingBox">
-        <path id="svg__rec" d="M0,0H1V1H0Z"/>
-        <path id="svg__star" d="M 0,0 L 0,1 L 0.6,1 C 0.85,1 1,0.8 1,0.5 C 1,0.2 0.85,0 0.6,0 Z"/>
-      </clipPath>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <clipPath id="svg__path2" clipPathUnits="userSpaceOnUse">
+      <path id="svg__rec2" d="M0 0 H1920 V1080 H0 Z"/>
+      <path id="svg__star2" d="M0 0 L0 200 L120 200 C170 200 200 160 200 100 C200 40 170 0 120 0 Z"/>
+    </clipPath>
 
-      <clipPath id="svg__path2" clipPathUnits="objectBoundingBox">
-        <path id="svg__rec2" d="M0,0H1V1H0Z"/>
-        <path id="svg__star2" d="M0.5,0 A0.5,0.5 0 1,1 0.5,1 A0.5,0.5 0 1,1 0.5,0 Z"/>
-      </clipPath>
+    <clipPath id="svg__path3" clipPathUnits="userSpaceOnUse">
+      <path id="svg__rec3" d="M0 0 H1920 V1080 H0 Z"/>
+      <path id="svg__star3" d="M100,0 C155,0 200,45 200,100 C200,155 155,200 100,200 C45,200 0,155 0,100 C0,45 45,0 100,0 Z"/>
+    </clipPath>
 
-      <clipPath id="svg__path3" clipPathUnits="objectBoundingBox">
-        <path id="svg__rec3" d="M0,0H1V1H0Z"/>
-        <path id="svg__star3" d="M0,0 H1 V0.20 H0.25 V0.40 H0.85 V0.6 H0.25 V1 H0 Z"/>
-      </clipPath>
+    <clipPath id="svg__path4" clipPathUnits="userSpaceOnUse">
+      <path id="svg__rec4" d="M0 0 H1920 V1080 H0 Z"/>
+      <path id="svg__star4" d="M0 0 H200 V40 H50 V80 H170 V120 H50 V200 H0 Z"/>
+    </clipPath>
 
-      <clipPath id="svg__path4" clipPathUnits="objectBoundingBox">
-        <path id="svg__rec4" d="M0,0H1V1H0Z"/>
-        <path id="svg__star4" d="M 0.5 0.0391 C 0.4727 0.2148 0.4492 0.3203 0.3828 0.3828 C 0.3203 0.4492 0.2148 0.4727 0.0391 0.5 C 0.2148 0.5273 0.3203 0.5508 0.3828 0.6172 C 0.4492 0.6797 0.4727 0.7852 0.5 0.9609 C 0.5273 0.7852 0.5508 0.6797 0.6172 0.6172 C 0.6797 0.5508 0.7852 0.5273 0.9609 0.5 C 0.7852 0.4727 0.6797 0.4492 0.6172 0.3828 C 0.5508 0.3203 0.5273 0.2148 0.5 0.0391 Z"/>
-      </clipPath>
-    </defs>
-  </svg>
+
+  </defs>
+</svg>
+
 
   <main class="flex__col">
     <nav class="menu flex">
@@ -97,21 +95,17 @@
     </section>
 
     <!-- Figures (no inline <svg> anymore) -->
-    <figure class="starSvg" id="svg1">
-      <video loop autoplay muted preload="none" playsinline poster="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwposter1.jpg">
-        <source src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwvideo1.mp4" type="video/mp4">
-      </video>
-    </figure>
+
 
     <figure class="starSvg" id="svg2">
       <video loop autoplay muted playsinline preload="none" poster="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwposter2.jpg">
-        <source src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwvideo2.mp4" type="video/mp4">
+        <source src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwvideo1.mp4" type="video/mp4">
       </video>
     </figure>
 
     <figure class="starSvg" id="svg3">
       <video loop autoplay muted playsinline preload="none" poster="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwposter3.jpg">
-        <source src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwvideo3.mp4" type="video/mp4">
+        <source src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/assets/bwvideo2.mp4" type="video/mp4">
       </video>
     </figure>
 

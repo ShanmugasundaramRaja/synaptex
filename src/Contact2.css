@@ -403,3 +403,12 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   background-image: linear-gradient(to right, beige, white);
   color: black;
 }
+.button-88:focus {
+  background-image: linear-gradient(to right, beige, white);
+  color: black;
+}
+
+.button-88:active {
+  background-image: linear-gradient(to right, beige, white);
+  color: black;
+}

@@ -10,8 +10,25 @@ import {
   PiNumberCircleFourFill,
 } from "react-icons/pi";
 import { RiRadioButtonFill } from "react-icons/ri";
+import Whyloader from "./Whyloader";
 
-export default function Segment1({ section2Ref }) {
+export default function Segment1() {
+  const [loading, setLoading] = useState(() => {
+    // Check if the loader has already been shown in this session
+    const hasLoaded = sessionStorage.getItem("whyLoaderShown");
+    return hasLoaded ? false : true;
+  });
+
+  useEffect(() => {
+    if (!loading) return; // Loader already shown, skip
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+      sessionStorage.setItem("whyLoaderShown", "true"); // Save loader shown state
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, [loading]);
   const [selected, setSelected] = useState(() => {
     // Use window.matchMedia to determine initial value
     return window.innerWidth < 1024 ? "one" : "two";
@@ -32,6 +49,10 @@ export default function Segment1({ section2Ref }) {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  if (loading) {
+    return <Whyloader />;
+  }
 
   return (
     <>
@@ -78,7 +99,7 @@ export default function Segment1({ section2Ref }) {
               loop
               playsInline
               className="cardVideo"
-              preload="none"
+              preload="auto"
             />
           </div>
           <div className="item item2">
@@ -89,7 +110,7 @@ export default function Segment1({ section2Ref }) {
               loop
               playsInline
               className="cardVideo"
-              preload="none"
+              preload="auto"
             />
           </div>
           <div className="item item3">
@@ -100,7 +121,7 @@ export default function Segment1({ section2Ref }) {
               loop
               playsInline
               className="cardVideo"
-              preload="none"
+              preload="auto"
             />
           </div>
           <div className="item item4">
@@ -111,7 +132,7 @@ export default function Segment1({ section2Ref }) {
               loop
               playsInline
               className="cardVideo"
-              preload="none"
+              preload="auto"
             />
           </div>
         </main>

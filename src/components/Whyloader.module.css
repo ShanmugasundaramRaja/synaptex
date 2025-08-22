@@ -1,0 +1,39 @@
+/* Whyloader.module.css */
+
+.center {
+  position: fixed;        /* make it overlay the entire screen */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #000;       /* black background only while loader is active */
+  z-index: 9999;          /* stays on top of everything */
+}
+
+.wave {
+  width: 6px;
+  height: 80px;
+  background: linear-gradient(45deg, cyan, #fff);
+  margin: 6px;
+  border-radius: 20px;
+
+  animation: wave 1s linear infinite;
+}
+
+/* Animate each bar "pulsing" */
+@keyframes wave {
+  0% {
+    transform: scaleY(0.2);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0.2);
+  }
+}

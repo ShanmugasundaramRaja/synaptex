@@ -1,15 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Modal from "./Modal";
 import "../Contact.css";
 import emailjs from "@emailjs/browser";
 
 import { useNavigate } from "react-router-dom";
+import Contactloader from "./Contactloader";
 
 export default function Contact() {
   const [hovering, setHovering] = useState(false);
+  const [loading, setLoading] = useState(() => {
+    // Check if the loader has already been shown in this session
+    const hasLoaded = sessionStorage.getItem("contactLoaderShown");
+    return hasLoaded ? false : true;
+  });
   const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading) return; // Loader already shown, skip
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+      sessionStorage.setItem("contactLoaderShown", "true"); // Save loader shown state
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, [loading]);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -35,7 +52,7 @@ export default function Contact() {
       .send(
         "service_yf53jlk", // Replace with your EmailJS service ID
         "template_v3vk4bo", // Replace with your EmailJS template ID
-        formData, // This object must match template variables
+        formData,
         "6Lfq3ESdTbQaoftN5" // Replace with your EmailJS public key
       )
       .then((response) => {
@@ -46,14 +63,18 @@ export default function Contact() {
         console.error("FAILED...", err);
         setModalOpen(true);
       });
-
-    // Add validation or send data to API here
   };
 
   const handleClick = () => {
     navigate("/");
-    window.scrollTo(0, 0); // Scroll to top immediately after navigation
+    window.scrollTo(0, 0);
   };
+
+  if (loading) {
+    // Show loader while `loading` is true
+    return <Contactloader />;
+  }
+
   return (
     <Container fluid className={`body ${hovering ? "hovered" : ""}`}>
       <Row className="contactrow">

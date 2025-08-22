@@ -82,9 +82,9 @@ main.flex__col {
 }
 
 .clip__cols {
-  width: 70vw;
+  width: 80vw;
   height: 45vh;
-  gap: 40px;
+  gap: 220px;
   align-items: flex-start;
   max-width: var(--maxWidth);
 }
@@ -92,6 +92,7 @@ main.flex__col {
 .clip__cols p {
   font-size: 1.5vw;
   width: 50%;
+ 
 }
 
 .clip__scroll {
@@ -188,35 +189,28 @@ main.flex__col {
   .clip__cols {
     width: 90vw;
     gap: 10px;
-
+  }
   .clip__cols p {
     width: 100%;
   }
   .starSvg {
     width: 70px;
   }
-}
+
 .starSvg.fullscreen {
   width: 100vw; /* will be used when expanded */
   height: auto;
 }
-}
+
 
 #clip1 .clip__cols p:first-child {
   margin-right: 10vw; /* pushes left column left */
 }
 #clip1 .clip__cols p:last-child {
   margin-left: 10vw; /* pushes right column right */
-}
+}}
 
-@media (min-width:768px) and (max-width:1024px){
-  #clip1 .clip__cols p:first-child {
-  margin-right: 15vw; /* pushes left column left */
-}
-#clip1 .clip__cols p:last-child {
-  margin-left: 15vw; /* pushes right column right */
-}
-}
+
 /* Loader overlay */
 @media screen and (min-width: 600px)and (max-width:1200px) and (min-height:601px){
   .clip__cols p {

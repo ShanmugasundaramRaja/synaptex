@@ -8,11 +8,27 @@ import { RiUploadCloudFill } from "react-icons/ri";
 import { GoHomeFill } from "react-icons/go";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
+import Contact2loader from "./Contact2loader";
 
 const Contact2 = () => {
   const [step, setStep] = useState(0);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(() => {
+    // Check if the loader has already been shown in this session
+    const hasLoaded = sessionStorage.getItem("contact2LoaderShown");
+    return hasLoaded ? false : true;
+  });
+
+  useEffect(() => {
+    if (!loading) return; // Loader already shown, skip
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+      sessionStorage.setItem("contact2LoaderShown", "true"); // Save loader shown state
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, [loading]);
   const navigate = useNavigate();
   const handlehome = () => {
     navigate("/");
@@ -24,6 +40,7 @@ const Contact2 = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const [files, setFiles] = useState({});
   useEffect(() => {
     console.log("Current files:", files);
@@ -664,6 +681,10 @@ const Contact2 = () => {
       setLoading(false);
     }
   };
+  if (loading) {
+    // Show loader while `loading` is true
+    return <Contact2loader />;
+  }
   return (
     <>
       <img

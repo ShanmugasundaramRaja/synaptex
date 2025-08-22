@@ -7,6 +7,8 @@ import Slider from "./Slider";
 import Address from "./Address";
 import Orbit from "./Orbit";
 import Home from "./Home";
+import { useState, useEffect } from "react";
+import LandingLoader from "./LandingLoader";
 
 export default function Landing({
   onScrollToSection1,
@@ -14,9 +16,28 @@ export default function Landing({
   onScrollToSection3,
   onScrollToSection4,
   section1Ref,
-
   section3Ref,
 }) {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const loaderShown = sessionStorage.getItem("landingLoaderShown");
+
+    if (!loaderShown) {
+      setLoading(true);
+      const timer = setTimeout(() => {
+        setLoading(false);
+        sessionStorage.setItem("landingLoaderShown", "true");
+      }, 1500);
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  if (loading) {
+    return <LandingLoader />;
+  }
+
   return (
     <>
       <Container className="landing" fluid>
@@ -30,11 +51,11 @@ export default function Landing({
           <Home />
         </Row>
       </Container>
+
       <Container className="landing" fluid>
         <Row>
           <What section1Ref={section1Ref} />
         </Row>
-
         <Row>
           <Address />
         </Row>
@@ -47,7 +68,6 @@ export default function Landing({
         <Row>
           <Orbit />
         </Row>
-
         <Row>
           <Footer />
         </Row>

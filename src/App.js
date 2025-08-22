@@ -1,21 +1,25 @@
 import Contact from "./components/Contact";
 import Landing from "./components/Landing";
 import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
-import React from 'react';
-import Footer from "./components/Footer";
+
 
 import Contact2 from "./components/Contact2";
 
 import { useRef } from "react";
 import What from "./components/What";
-import Slider from "./components/Slider";
+
 import Segment1 from "./components/WhatWeDo";
 
 
-import StarScroll from "./components/StarScroll";
+
 import Carousel from "./components/Carousel";
 import News from "./components/News";
-import Orbit from "./components/Orbit";
+
+
+import LandingLoader from "./components/LandingLoader";
+import Aboutus from "./components/Aboutus";
+import AboutUsLoader from "./components/AboutusLoader";
+
 
 
 
@@ -48,19 +52,21 @@ const section1Ref = useRef(null);
         />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/joinus" element={<Contact2 />} />
-        <Route path="/footer" element={<Footer />} />
+      
 
         <Route path="/What" element={<What/>}/>
-           <Route path="/slide" element={<Slider/>}/>
+        
            <Route path="/whyus" element={<Segment1/>}/>
                
                   
      
           
-          < Route path="/aboutus"  element={<StarScroll/>} />
+          < Route path="/aboutus"  element={<Aboutus/>} />
             <Route path="/products" element={<Carousel />} />
              <Route path="/whatsnext" element={<News />} />
-                      <Route path="/orbit" element={<Orbit />} />
+              <Route path="/loader" element={<AboutUsLoader />} />
+                     
+                    
           
    
    

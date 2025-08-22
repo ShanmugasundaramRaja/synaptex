@@ -13,7 +13,7 @@ export default function Home() {
 
       setVideoSrc(
         isPortraitRatio
-          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Homeportrait.mp4"
+          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/HomePortrait.mp4"
           : "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Home.mp4"
       );
     };
@@ -34,8 +34,8 @@ export default function Home() {
             muted
             loop
             playsInline
-            className="responsive-video "
             style={{ paddingLeft: 0, paddingRight: 0 }}
+            className="responsive-video"
           />
         </Row>
       </Container>

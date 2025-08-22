@@ -17,7 +17,7 @@ export default function Address() {
 
       setVideoSrc(
         isPortraitRatio
-          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Address%20Portrait.mp4"
+          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Addressportrait.mp4"
           : "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Address.mp4"
       );
     };
@@ -42,7 +42,6 @@ export default function Address() {
             muted
             loop
             playsInline
-            className="responsive-video "
             style={{ paddingLeft: 0, paddingRight: 0 }}
           />
         </Row>

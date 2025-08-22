@@ -38,7 +38,6 @@ export default function Certificates({ section3Ref }) {
             muted
             loop
             playsInline
-            className="responsive-video "
             style={{ paddingLeft: 0, paddingRight: 0 }}
           />
         </Row>

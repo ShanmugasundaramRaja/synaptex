@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
+import "../WhatWeDo.css";
+import video from "../assets/WhatWeDoPortrait.mp4";
 
 export default function What({ section1Ref }) {
   const [videoSrc, setVideoSrc] = useState(
@@ -17,7 +19,7 @@ export default function What({ section1Ref }) {
 
       setVideoSrc(
         isPortraitRatio
-          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/WhatWeDoPortrait.mp4"
+          ? video
           : "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/WhatWeDo.mp4"
       );
     };

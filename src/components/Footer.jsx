@@ -80,7 +80,7 @@ export default function Footer() {
             </p>
             <div className="social-icons">
               <a
-                href="https://www.instagram.com"
+                href="https://www.instagram.com/synaptex_global?igsh=M2RjZmwzdWFzbWEx&utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ marginRight: "1vw" }}
@@ -88,7 +88,7 @@ export default function Footer() {
                 <FaInstagram size={iconSize} />
               </a>
               <a
-                href="https://www.linkedin.com"
+                href="https://www.linkedin.com/company/108337837/admin/dashboard/"
                 target="_blank"
                 rel="noopener noreferrer"
               >

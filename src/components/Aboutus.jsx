@@ -15,7 +15,7 @@ export default function AboutusRedirect() {
         setLoading(false);
         sessionStorage.setItem("aboutusLoaderShown", "true");
         window.location.href = "/aboutus.html";
-      }, 4000);
+      }, 2000);
 
       return () => clearTimeout(timer);
     } else {

@@ -23,7 +23,7 @@ export default function Contact() {
     const timer = setTimeout(() => {
       setLoading(false);
       sessionStorage.setItem("contactLoaderShown", "true"); // Save loader shown state
-    }, 4000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [loading]);

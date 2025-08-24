@@ -15,7 +15,7 @@ export default function AboutusRedirect() {
         setLoading(false);
         sessionStorage.setItem("newsLoaderShown", "true");
         window.location.href = "/whatsnext.html";
-      }, 4000);
+      }, 2000);
 
       return () => clearTimeout(timer);
     } else {

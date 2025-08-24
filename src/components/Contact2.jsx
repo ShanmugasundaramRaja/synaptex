@@ -25,7 +25,7 @@ const Contact2 = () => {
     const timer = setTimeout(() => {
       setLoading(false);
       sessionStorage.setItem("contact2LoaderShown", "true"); // Save loader shown state
-    }, 4000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [loading]);

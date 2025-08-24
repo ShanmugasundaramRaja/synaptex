@@ -25,7 +25,7 @@ export default function Segment1() {
     const timer = setTimeout(() => {
       setLoading(false);
       sessionStorage.setItem("whyLoaderShown", "true"); // Save loader shown state
-    }, 4000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [loading]);

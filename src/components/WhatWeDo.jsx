@@ -93,7 +93,7 @@ export default function Segment1() {
         <main id="carousel">
           <div className="item">
             <video
-              src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/whyus1.mp4" // adjust the path as needed
+              src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/Home%20(3).mp4" // adjust the path as needed
               autoPlay
               muted
               loop
@@ -104,7 +104,7 @@ export default function Segment1() {
           </div>
           <div className="item item2">
             <video
-              src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/whyus2.mp4" // adjust the path as needed
+              src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/Home%20(4).mp4" // adjust the path as needed
               autoPlay
               muted
               loop

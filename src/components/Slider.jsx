@@ -12,7 +12,7 @@ export default function Slider() {
     }
     const updateVideoSrc = () => {
       const { innerWidth: width, innerHeight: height } = window;
-      const isPortraitRatio = height > 1.3 * width;
+      const isPortraitRatio = height > 1.2 * width;
 
       setVideoSrc(
         isPortraitRatio

@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 export default function Carousel() {
   useEffect(() => {
-    window.location.href = "/products.html";
+    window.location.replace("/products.html"); // replaces current history entry
   }, []);
 
-  return null; // Optionally return a loader here
+  return null; // you could render a loader/spinner here if needed
 }

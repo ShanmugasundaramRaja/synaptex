@@ -137,9 +137,19 @@ main.flex__col {
 }
 
 #svg1 {clip-path: url(#svg__path)}
-#svg2 {clip-path: url(#svg__path2)}
-#svg3 {clip-path: url(#svg__path3)}
-#svg4 {clip-path: url(#svg__path4)}
+#svg2 {
+  -webkit-clip-path: url(#svg__path2);
+  clip-path: url(#svg__path2);
+}
+#svg3 {
+  -webkit-clip-path: url(#svg__path3);
+  clip-path: url(#svg__path3);
+}
+#svg4 {
+  -webkit-clip-path: url(#svg__path4);
+  clip-path: url(#svg__path4);
+}
+
 
 .starSvg img, .starSvg video {
   position: absolute;

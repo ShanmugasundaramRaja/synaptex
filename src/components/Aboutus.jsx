@@ -14,13 +14,13 @@ export default function AboutusRedirect() {
       const timer = setTimeout(() => {
         setLoading(false);
         sessionStorage.setItem("aboutusLoaderShown", "true");
-        window.location.href = "/aboutus.html";
+        window.location.replace = "/aboutus.html";
       }, 2000);
 
       return () => clearTimeout(timer);
     } else {
       // Directly redirect if loader was already shown
-      window.location.href = "/aboutus.html";
+      window.location.replace("/aboutus.html");
     }
   }, []);
 

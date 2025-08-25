@@ -14,13 +14,13 @@ export default function AboutusRedirect() {
       const timer = setTimeout(() => {
         setLoading(false);
         sessionStorage.setItem("newsLoaderShown", "true");
-        window.location.replace = "/whatsnext.html";
+        window.location.href = "/whatsnext.html";
       }, 2000);
 
       return () => clearTimeout(timer);
     } else {
       // Directly redirect if loader was already shown
-      window.location.replace = "/whatsnext.html";
+      window.location.href = "/whatsnext.html";
     }
   }, []);
 

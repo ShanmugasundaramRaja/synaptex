@@ -9,6 +9,7 @@ import Orbit from "./Orbit";
 import Home from "./Home";
 import { useState, useEffect } from "react";
 import LandingLoader from "./LandingLoader";
+import Who from "./Who";
 
 export default function Landing({
   onScrollToSection1,
@@ -54,7 +55,13 @@ export default function Landing({
 
       <Container className="landing" fluid>
         <Row>
+          <Who />
+        </Row>
+        <Row>
           <What section1Ref={section1Ref} />
+        </Row>
+        <Row>
+          <Certificates section3Ref={section3Ref} />
         </Row>
         <Row>
           <Address />
@@ -63,11 +70,9 @@ export default function Landing({
           <Slider />
         </Row>
         <Row>
-          <Certificates section3Ref={section3Ref} />
-        </Row>
-        <Row>
           <Orbit />
         </Row>
+
         <Row>
           <Footer />
         </Row>

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import "../WhatWeDo.css";
 
@@ -9,9 +9,21 @@ export default function What({ section1Ref }) {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.8; // Slow down to 50%
-    }
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.playbackRate = 0.8;
+
+    // Force autoplay programmatically
+    const tryPlay = async () => {
+      try {
+        await video.play();
+      } catch (err) {
+        console.warn("Autoplay blocked", err);
+      }
+    };
+    tryPlay();
+
     const updateVideoSrc = () => {
       const { innerWidth: width, innerHeight: height } = window;
       const isPortraitRatio = height > 1.3 * width;
@@ -23,31 +35,26 @@ export default function What({ section1Ref }) {
       );
     };
 
-    updateVideoSrc(); // Initial check
-
+    updateVideoSrc();
     window.addEventListener("resize", updateVideoSrc);
     return () => window.removeEventListener("resize", updateVideoSrc);
   }, []);
 
-  // Use these buttons in a different place* <button className="button-88 button-buyers">BUYERS</button> <button className="button-88 button-sellers">SELLERS</button>
-
   return (
-    <>
-      <Container ref={section1Ref} fluid>
-        <Row>
-          <video
-            preload="none"
-            ref={videoRef}
-            src={videoSrc} // adjust the path as needed
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="responsive-video "
-            style={{ paddingLeft: 0, paddingRight: 0 }}
-          />
-        </Row>
-      </Container>
-    </>
+    <Container ref={section1Ref} fluid>
+      <Row>
+        <video
+          ref={videoRef}
+          src={videoSrc}
+          preload="auto" // encourage buffering for autoplay
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="responsive-video"
+          style={{ paddingLeft: 0, paddingRight: 0 }}
+        />
+      </Row>
+    </Container>
   );
 }

@@ -6,10 +6,9 @@ export default function Slider() {
     "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/Untitled%20design%20(1).mp4"
   );
   const videoRef = useRef(null);
+
+  // Update video src based on viewport ratio
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.8; // Slow down to 50%
-    }
     const updateVideoSrc = () => {
       const { innerWidth: width, innerHeight: height } = window;
       const isPortraitRatio = height > 1.3 * width;
@@ -22,34 +21,44 @@ export default function Slider() {
     };
 
     updateVideoSrc(); // Initial check
-
     window.addEventListener("resize", updateVideoSrc);
     return () => window.removeEventListener("resize", updateVideoSrc);
   }, []);
+
+  // Ensure autoplay, muted, and playback rate
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.load();
-      videoRef.current.play().catch(() => {
-        console.log("Autoplay blocked on iOS, muted is required");
-      });
-    }
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.playbackRate = 0.8;
+
+    const tryPlay = async () => {
+      try {
+        await video.play();
+      } catch (err) {
+        console.warn("Autoplay blocked, ensure muted & playsInline", err);
+      }
+    };
+
+    // Load and attempt autoplay
+    video.load();
+    tryPlay();
   }, [videoSrc]);
+
   return (
-    <>
-      <Container fluid>
-        <Row>
-          <video
-            preload="none"
-            ref={videoRef}
-            src={videoSrc} // adjust the path as needed
-            autoPlay
-            muted
-            loop
-            playsInline
-            style={{ paddingLeft: 0, paddingRight: 0 }}
-          />
-        </Row>
-      </Container>
-    </>
+    <Container fluid>
+      <Row>
+        <video
+          ref={videoRef}
+          src={videoSrc}
+          preload="auto" // preload to improve autoplay success
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{ paddingLeft: 0, paddingRight: 0 }}
+        />
+      </Row>
+    </Container>
   );
 }

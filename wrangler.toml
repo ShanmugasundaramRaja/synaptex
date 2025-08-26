@@ -1,0 +1,8 @@
+[[r2_buckets]]
+binding = "MY_BUCKET"
+bucket_name = "synaptex"
+
+[bindings]
+type = "r2_bucket"
+name = "MY_BUCKET"
+bucket_name = "synaptex"

@@ -6,6 +6,7 @@ export default function Who() {
     "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/WhoCompressed.mp4"
   );
   const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   // Update video source based on viewport aspect ratio
   useEffect(() => {
@@ -36,13 +37,29 @@ export default function Who() {
       try {
         video.load();
         await video.play();
+        setIsPlaying(true); // Autoplay successful
       } catch (err) {
         console.warn("Autoplay blocked, ensure muted & playsInline", err);
+        setIsPlaying(false);
       }
     };
 
     tryPlay();
   }, [videoSrc]);
+
+  // Toggle play/pause on click
+  const handleVideoClick = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      video.play();
+      setIsPlaying(true);
+    } else {
+      video.pause();
+      setIsPlaying(false);
+    }
+  };
 
   return (
     <Container fluid>
@@ -55,8 +72,9 @@ export default function Who() {
           muted
           loop
           playsInline
+          onClick={handleVideoClick}
           className="responsive-video"
-          style={{ paddingLeft: 0, paddingRight: 0 }}
+          style={{ paddingLeft: 0, paddingRight: 0, cursor: "pointer" }}
         />
       </Row>
     </Container>

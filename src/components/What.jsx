@@ -4,7 +4,7 @@ import "../WhatWeDo.css";
 
 export default function What({ section1Ref }) {
   const [videoSrc, setVideoSrc] = useState(
-    "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/WhatWeDo.mp4"
+    "https://synaptex.pages.dev/srcassets/WhatWeDo.mp4"
   );
   const videoRef = useRef(null);
 
@@ -19,9 +19,10 @@ export default function What({ section1Ref }) {
       try {
         await video.play();
       } catch (err) {
-        console.warn("Autoplay blocked", err);
+        console.warn("Autoplay blocked:", err);
       }
     };
+
     tryPlay();
 
     const updateVideoSrc = () => {
@@ -30,8 +31,8 @@ export default function What({ section1Ref }) {
 
       setVideoSrc(
         isPortraitRatio
-          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/Home%20(5).mp4"
-          : "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/WhatWeDo.mp4"
+          ? "https://synaptex.pages.dev/Home%20(5).mp4"
+          : "https://synaptex.pages.dev/srcassets/WhatWeDo.mp4"
       );
     };
 

@@ -14,7 +14,7 @@ export default function Orbit() {
   return (
     <Container fluid className="orbitfluid">
       <img
-        src="https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Whatsnext.png"
+        src="https://synaptex.pages.dev/srcassets/Whatsnext.png"
         className="Whatsnext"
         alt="title"
       />

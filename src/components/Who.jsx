@@ -3,7 +3,7 @@ import { Container, Row } from "react-bootstrap";
 
 export default function Who() {
   const [videoSrc, setVideoSrc] = useState(
-    "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/WhoCompressed.mp4"
+    "https://synaptex.pages.dev/WhoCompressed.mp4"
   );
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -16,8 +16,8 @@ export default function Who() {
 
       setVideoSrc(
         isPortraitRatio
-          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/WhoPortraitCompressed.mp4"
-          : "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/WhoCompressed.mp4"
+          ? "https://synaptex.pages.dev/WhoPortraitCompressed.mp4"
+          : "https://synaptex.pages.dev/WhoCompressed.mp4"
       );
     };
 
@@ -35,9 +35,8 @@ export default function Who() {
 
     const tryPlay = async () => {
       try {
-        video.load();
         await video.play();
-        setIsPlaying(true); // Autoplay successful
+        setIsPlaying(true);
       } catch (err) {
         console.warn("Autoplay blocked, ensure muted & playsInline", err);
         setIsPlaying(false);

@@ -15,8 +15,8 @@ export default function Address() {
 
       setVideoSrc(
         isPortraitRatio
-          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Addressportrait.mp4"
-          : "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Address.mp4"
+          ? "https://synaptex.pages.dev/srcassets/Addressportrait.mp4"
+          : "https://synaptex.pages.dev/srcassets/Address.mp4"
       );
     };
 
@@ -34,10 +34,9 @@ export default function Address() {
 
     const tryPlay = async () => {
       try {
-        video.load();
         await video.play();
       } catch (err) {
-        console.warn("Autoplay blocked, ensure muted & playsInline", err);
+        console.warn("Autoplay blocked:", err);
       }
     };
 

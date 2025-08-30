@@ -3,7 +3,7 @@ import { Container, Row } from "react-bootstrap";
 
 export default function Home() {
   const [videoSrc, setVideoSrc] = useState(
-    "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Home.mp4"
+    "https://synaptex.pages.dev/srcassets/Home.mp4"
   );
   const videoRef = useRef(null);
 
@@ -15,8 +15,8 @@ export default function Home() {
 
       setVideoSrc(
         isPortraitRatio
-          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Homeportraitcompressed.mp4"
-          : "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/Homecompressed.mp4"
+          ? "https://synaptex.pages.dev/srcassets/Homeportraitcompressed.mp4"
+          : "https://synaptex.pages.dev/srcassets/Homecompressed.mp4"
       );
     };
 
@@ -34,16 +34,14 @@ export default function Home() {
 
     const tryPlay = async () => {
       try {
-        video.load();
         await video.play();
       } catch (err) {
-        console.warn("Autoplay blocked, ensure muted & playsInline", err);
+        console.warn("Autoplay blocked:", err);
       }
     };
 
     tryPlay();
   }, [videoSrc]);
-
   return (
     <Container fluid>
       <Row>

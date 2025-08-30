@@ -3,7 +3,7 @@ import { Container, Row } from "react-bootstrap";
 
 export default function Certificates({ section3Ref }) {
   const [videoSrc, setVideoSrc] = useState(
-    "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/Certificates.mp4"
+    "https://synaptex.pages.dev/Certificates.mp4"
   );
   const videoRef = useRef(null);
 
@@ -15,8 +15,8 @@ export default function Certificates({ section3Ref }) {
 
       setVideoSrc(
         isPortraitRatio
-          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/SYNAPTEX.mp4"
-          : "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/Certificates.mp4"
+          ? "https://synaptex.pages.dev/SYNAPTEX.mp4"
+          : "https://synaptex.pages.dev/Certificates.mp4"
       );
     };
 
@@ -31,13 +31,11 @@ export default function Certificates({ section3Ref }) {
     if (!video) return;
 
     video.playbackRate = 0.8;
-
     const tryPlay = async () => {
       try {
-        video.load();
         await video.play();
       } catch (err) {
-        console.warn("Autoplay blocked, ensure muted & playsInline", err);
+        console.warn("Autoplay blocked:", err);
       }
     };
 

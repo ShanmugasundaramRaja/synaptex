@@ -1,13 +1,281 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap'); :root { --font1: "Poppins"; --fontSizeMenu: 1vw; --fontSizeH1: 10vw; --fontSizeP: 1.48vw; --maxWidth: 1100px; } body { margin: 0; background:linear-gradient(90deg,#375d53,black); font-family: var(--font1); overflow-x: hidden; height:600vh; color: beige } .logo{ height:40px; width: auto; } .flex, .flex__col { display: flex; justify-content: center; align-items: center; } .flex__col { flex-direction: column; } ul { margin: 0; padding: 0; list-style: none; } main.flex__col { width: 100%; justify-content: flex-start; } .menu { position: fixed; z-index: 999; top: 0; left: 50%; width: calc(100% - 80px); justify-content: space-between; margin: 40px 0; transform: translatex(-50%); } .menu a { font-size: 0.8rem; color: beige; text-decoration: none; } .menu ul { gap: 0 60px; } .menu ul li { display: flex; } .clip { width: 100%; height: 150vh; } .clip__inner { position: relative; width: 100%; height: 100vh; } .clip__inner h1 { align-items: flex-end; font-size: var(--fontSizeH1); text-align: center; max-width: var(--maxWidth); margin: 5vw 0; } .clip__cols { width: 70vw; height: 45vh; gap: 40px; align-items: flex-start; max-width: var(--maxWidth); } .clip__cols a { color:black } .clip__scroll { z-index: 3; width: 100vw; height: 100vh; padding-top: 100vh; } #clip1__scroll { padding-top: 0; } .clip__scroll h2 { color:black; font-size: var(--fontSizeH1); margin: 0 0 6vw 0; } .clip__scroll .clip__cols { height: auto; } .clip__scroll p, .clip__scroll a { color:black } #svg__rec, #svg__rec2, #svg__rec3, #svg__rec4 { display: none; } .starSvg { position: fixed; z-index: 2; top: 50%; left: 50%; margin: 0; width: 200px; height: auto; aspect-ratio: 1/1; transform: translate(-50%, -50%); } #svg1 {clip-path: url(#svg__path)} #svg2 {clip-path: url(#svg__path2)} #svg3 {clip-path: url(#svg__path3)} #svg4 {clip-path: url(#svg__path4)} .starSvg img, .starSvg video { position: absolute; top: 50%; left: 50%; width: 100vw; height: auto; aspect-ratio: 1/1; object-fit: cover; transform: translate(-50%,-50%); } @media (orientation: portrait) { .starSvg img, .starSvg video { width: auto; height: 100vh; } } @media (min-width: 750px){ p{ font-size: 1.3rem; } .menu a { font-size: 1rem; } } @media (min-width: 1450px) { .logo{ height:40px; width: auto; } :root { --fontSizeMenu: 16px; --fontSizeH1: 140px; --fontSizeP: 22px; } .clip__cols { height: 35vh; } } @media (max-width: 600px) { :root { --fontSizeMenu: 11px; --fontSizeP: 11px; } .logo{ height:30px; width: auto; } .menu { width: 90vw; margin: 4vw 0; } .menu ul { gap: 0 2vw; } .clip__inner h1 { justify-content: flex-start; margin: 60px 0; } .clip__cols { gap: 10px; flex-direction: column; justify-content: flex-start; } .clip__cols p { width: 100%; } p{ font-size: 0.7rem; } .last{ font-size: 0.8rem; } } .last{ font-weight: 500; background-color: rgba(248, 248, 248, 0.4); border-radius: 20px; padding: 10px; } .firsthead{ padding-bottom:10vh }
-.home{
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+  --font1: "Poppins";
+  --fontSizeMenu: 1vw;
+  --fontSizeH1: 10vw;
+  --fontSizeP: 1.48vw;
+  --maxWidth: 1100px;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(90deg, #375d53, black);
+  font-family: var(--font1);
+  overflow-x: hidden;
+  height: 600vh;
+  color: beige;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.flex,
+.flex__col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex__col {
+  flex-direction: column;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+main.flex__col {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.menu {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 50%;
+  width: calc(100% - 80px);
+  justify-content: space-between;
+  margin: 40px 0;
+  transform: translateX(-50%);
+}
+
+.menu a {
+  font-size: 0.8rem;
+  color: beige;
+  text-decoration: none;
+}
+
+.menu ul {
+  gap: 0 60px;
+}
+
+.menu ul li {
+  display: flex;
+}
+
+.clip {
+  width: 100%;
+  height: 150vh;
+}
+
+.clip__inner {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.clip__inner h1 {
+  align-items: flex-end;
+  font-size: var(--fontSizeH1);
+  text-align: center;
+  max-width: var(--maxWidth);
+  margin: 5vw 0;
+}
+
+.clip__cols {
+  width: 70vw;
+  height: 45vh;
+  gap: 40px;
+  align-items: flex-start;
+  max-width: var(--maxWidth);
+}
+
+.clip__cols a {
+  color: black;
+}
+
+.clip__scroll {
+  z-index: 3;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 100vh;
+}
+
+#clip1__scroll {
+  padding-top: 0;
+}
+
+.clip__scroll h2 {
+  color: black;
+  font-size: var(--fontSizeH1);
+  margin: 0 0 6vw 0;
+}
+
+.clip__scroll .clip__cols {
+  height: auto;
+}
+
+.clip__scroll p,
+.clip__scroll a {
+  color: black;
+}
+
+#svg__rec,
+#svg__rec2,
+#svg__rec3,
+#svg__rec4 {
+  display: none;
+}
+
+.starSvg {
+  position: fixed;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  width: 200px;
+  height: auto;
+  aspect-ratio: 1/1;
+  transform: translate(-50%, -50%);
+}
+
+#svg1 {
+  clip-path: url(#svg__path);
+}
+
+#svg2 {
+  clip-path: url(#svg__path2);
+}
+
+#svg3 {
+  clip-path: url(#svg__path3);
+}
+
+#svg4 {
+  clip-path: url(#svg__path4);
+}
+
+.starSvg img,
+.starSvg video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: auto;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+@media (orientation: portrait) {
+  .starSvg img,
+  .starSvg video {
+    width: auto;
+    height: 100vh;
+  }
+}
+
+@media (min-width: 750px) {
+  p {
+    font-size: 1.3rem;
+      background-color: rgba(248, 248, 248, 0.5);
+  border-radius: 20px;
+  padding: 10px;
+
+  }
+  .menu a {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1450px) {
+  .logo {
+    height: 40px;
+    width: auto;
+  }
+
+  :root {
+    --fontSizeMenu: 16px;
+    --fontSizeH1: 140px;
+    --fontSizeP: 22px;
+  }
+
+  .clip__cols {
+    height: 35vh;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --fontSizeMenu: 11px;
+    --fontSizeP: 11px;
+  }
+
+  .logo {
+    height: 30px;
+    width: auto;
+  }
+
+  .menu {
+    width: 90vw;
+    margin: 4vw 0;
+  }
+
+  .menu ul {
+    gap: 0 2vw;
+  }
+
+  .clip__inner h1 {
+    justify-content: flex-start;
+    margin: 60px 0;
+    
+  }
+
+  .clip__cols {
+    gap: 10px;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .clip__cols p {
+    width: 100%;
+     font-weight: 500;
+     font-size: 1rem;
+     line-height: 27px;
+       background-color: rgba(248, 248, 248, 0.5);
+  border-radius: 20px;
+  padding: 10px;
+  }
+
+  p {
+    font-size: 0.7rem;
+  }
+
+  .last {
+    font-size: 0.8rem;
+     font-weight: 500;
+  }
+}
+
+
+.firsthead {
+  padding-bottom: 10vh;
+}
+
+.home {
   transition: all 0.4s ease-in;
   letter-spacing: 1px;
 }
-.home:hover{
 
+.home:hover {
   letter-spacing: 3px;
-  border:2px solid beige;
-   border-radius:28px ;
-   padding:10px
-  
+  border: 2px solid beige;
+  border-radius: 28px;
+  padding: 10px;
 }

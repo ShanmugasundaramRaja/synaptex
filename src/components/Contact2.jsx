@@ -542,7 +542,7 @@ const Contact2 = () => {
             onChange={handleInputChange}
           />
           <label>
-            <h3>Can you provide production timelines frequent updates </h3>
+            <h3>Can you provide production timelines and frequent updates </h3>
           </label>
           <textarea
             name="q38"

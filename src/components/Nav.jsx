@@ -13,6 +13,10 @@ const Nav = ({
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  // Detect Firefox
+  const isFirefox = typeof InstallTrigger !== "undefined";
+
   const handleClick = () => {
     navigate("/aboutus");
   };
@@ -27,9 +31,12 @@ const Nav = ({
       </div>
 
       <Row className={`nav ${menuOpen ? "nav-open" : ""}`}>
-        <button className="btn-12" onClick={handleClick}>
-          ABOUT US
-        </button>
+        {/* Conditionally render About Us */}
+        {!isFirefox && (
+          <button className="btn-12" onClick={handleClick}>
+            ABOUT US
+          </button>
+        )}
         <button className="btn-12" onClick={onScrollToSection1}>
           SERVICES
         </button>

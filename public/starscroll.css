@@ -258,7 +258,8 @@ main.flex__col {
   }
 
   .last {
-    font-size: 0.8rem;
+    font-size: 0.8rem!important;
+    line-height: 21px!important;
      font-weight: 500;
   }
 }

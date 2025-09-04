@@ -17,7 +17,7 @@
 }
 
 .image-col img {
-  max-width: 100%;
+  width:18vw;
   height: auto;
   display: block;
   margin-left: 0; /* Removed transform shifting */

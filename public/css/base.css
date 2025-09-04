@@ -755,7 +755,37 @@ a:focus-visible {
     margin: 0;
   }
 }
-
-
+.logo {
+  height: 40px;
+  width: auto;
+}
+@media(max-width:600px){
+.logo {
+  height: 20px;
+  width: auto;
+}  
+}
+@media(min-width:769px){
+.logo {
+position: relative;
+top:15px
+}  
+}
+.frame{
+  display: flex;
+  justify-content: space-between;
+  height:10vh;
+}
+@media(max-width:769px){
+.preview{
+  top:30px
+}
+ 
+}
+@media(min-width:600px)and (max-width:769px){
+.frame__links{
+  font-size: 1.2rem;
+}
+}
 
 

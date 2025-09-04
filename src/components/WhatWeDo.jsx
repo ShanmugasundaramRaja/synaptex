@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Row } from "react-bootstrap";
 import "../WhatWeDo.css";
 import { useNavigate } from "react-router-dom";
@@ -14,41 +14,92 @@ import Whyloader from "./Whyloader";
 
 export default function Segment1() {
   const [loading, setLoading] = useState(() => {
-    // Check if the loader has already been shown in this session
     const hasLoaded = sessionStorage.getItem("whyLoaderShown");
     return hasLoaded ? false : true;
   });
 
   useEffect(() => {
-    if (!loading) return; // Loader already shown, skip
-
+    if (!loading) return;
     const timer = setTimeout(() => {
       setLoading(false);
-      sessionStorage.setItem("whyLoaderShown", "true"); // Save loader shown state
+      sessionStorage.setItem("whyLoaderShown", "true");
     }, 2000);
-
     return () => clearTimeout(timer);
   }, [loading]);
+
+  // current selected slide
   const [selected, setSelected] = useState(() => {
-    // Use window.matchMedia to determine initial value
     return window.innerWidth < 1024 ? "one" : "two";
   });
+
   const navigate = useNavigate();
-  const handlehome = () => {
-    navigate("/");
+  const handlehome = () => navigate("/");
+
+  // ✅ helper to sync React + radio input
+  const setSlide = (pos) => {
+    setSelected(pos);
+    const input = document.getElementById(pos);
+    if (input) input.checked = true;
   };
+
+  // ✅ resize listener to reset default slide
   useEffect(() => {
     const handleResize = () => {
-      setSelected(window.innerWidth < 1024 ? "one" : "two");
+      setSlide(window.innerWidth < 1024 ? "one" : "two");
     };
-
     window.addEventListener("resize", handleResize);
-
-    // Optional: Run once on mount to sync state if screen size changed before effect ran
     handleResize();
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // ✅ swipe detection
+  const carouselRef = useRef(null);
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+
+    let startX = 0;
+    let endX = 0;
+
+    const handleTouchStart = (e) => {
+      startX = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e) => {
+      endX = e.touches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+      if (!startX || !endX) return;
+      const diff = startX - endX;
+
+      // threshold to avoid tiny movements
+      if (Math.abs(diff) > 50) {
+        const slides = ["one", "two", "three", "four"];
+        const idx = slides.indexOf(selected);
+
+        if (diff > 0 && idx < slides.length - 1) {
+          // swipe left → next
+          setSlide(slides[idx + 1]);
+        } else if (diff < 0 && idx > 0) {
+          // swipe right → prev
+          setSlide(slides[idx - 1]);
+        }
+      }
+      startX = 0;
+      endX = 0;
+    };
+
+    el.addEventListener("touchstart", handleTouchStart);
+    el.addEventListener("touchmove", handleTouchMove);
+    el.addEventListener("touchend", handleTouchEnd);
+
+    return () => {
+      el.removeEventListener("touchstart", handleTouchStart);
+      el.removeEventListener("touchmove", handleTouchMove);
+      el.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [selected]);
 
   if (loading) {
     return <Whyloader />;
@@ -57,30 +108,30 @@ export default function Segment1() {
   return (
     <>
       <Row>
+        {/* hidden radios that CSS carousel listens to */}
         <input
           type="radio"
           name="position"
           id="one"
-          checked={selected === "one"}
+          defaultChecked={selected === "one"}
         />
-
         <input
           type="radio"
           name="position"
           id="two"
-          checked={selected === "two"}
+          defaultChecked={selected === "two"}
         />
         <input
           type="radio"
           name="position"
           id="three"
-          checked={selected === "three"}
+          defaultChecked={selected === "three"}
         />
         <input
           type="radio"
           name="position"
           id="four"
-          checked={selected === "four"}
+          defaultChecked={selected === "four"}
         />
 
         <img
@@ -90,10 +141,11 @@ export default function Segment1() {
           loading="lazy"
         />
 
-        <main id="carousel">
-          <div className="item">
+        {/* carousel */}
+        <main id="carousel" ref={carouselRef}>
+          <div className="item" onClick={() => setSlide("one")}>
             <video
-              src="https://synaptex.pages.dev/Home%20(3).mp4" // adjust the path as needed
+              src="https://synaptex.pages.dev/Home%20(3).mp4"
               autoPlay
               muted
               loop
@@ -102,9 +154,9 @@ export default function Segment1() {
               preload="auto"
             />
           </div>
-          <div className="item item2">
+          <div className="item item2" onClick={() => setSlide("two")}>
             <video
-              src="https://synaptex.pages.dev/Home%20(4).mp4" // adjust the path as needed
+              src="https://synaptex.pages.dev/Home%20(4).mp4"
               autoPlay
               muted
               loop
@@ -113,9 +165,9 @@ export default function Segment1() {
               preload="auto"
             />
           </div>
-          <div className="item item3">
+          <div className="item item3" onClick={() => setSlide("three")}>
             <video
-              src="https://synaptex.pages.dev/srcassets/whyus3.mp4" // adjust the path as needed
+              src="https://synaptex.pages.dev/srcassets/whyus3.mp4"
               autoPlay
               muted
               loop
@@ -124,9 +176,9 @@ export default function Segment1() {
               preload="auto"
             />
           </div>
-          <div className="item item4">
+          <div className="item item4" onClick={() => setSlide("four")}>
             <video
-              src="https://synaptex.pages.dev/srcassets/whyus4.mp4" // adjust the path as needed
+              src="https://synaptex.pages.dev/srcassets/whyus4.mp4"
               autoPlay
               muted
               loop
@@ -137,10 +189,12 @@ export default function Segment1() {
           </div>
         </main>
       </Row>
+
+      {/* page controls */}
       <div className="pages">
         <label
           htmlFor="one"
-          onClick={() => setSelected("one")}
+          onClick={() => setSlide("one")}
           style={{ fontSize: "3rem", color: "beige" }}
         >
           {selected === "one" ? (
@@ -152,8 +206,8 @@ export default function Segment1() {
 
         <label
           htmlFor="two"
+          onClick={() => setSlide("two")}
           style={{ fontSize: "3rem", color: "beige" }}
-          onClick={() => setSelected("two")}
         >
           {selected === "two" ? (
             <RiRadioButtonFill />
@@ -161,10 +215,11 @@ export default function Segment1() {
             <PiNumberCircleTwoFill />
           )}
         </label>
+
         <label
           htmlFor="three"
+          onClick={() => setSlide("three")}
           style={{ fontSize: "3rem", color: "beige" }}
-          onClick={() => setSelected("three")}
         >
           {selected === "three" ? (
             <RiRadioButtonFill />
@@ -172,10 +227,11 @@ export default function Segment1() {
             <PiNumberCircleThreeFill />
           )}
         </label>
+
         <label
           htmlFor="four"
+          onClick={() => setSlide("four")}
           style={{ fontSize: "3rem", color: "beige" }}
-          onClick={() => setSelected("four")}
         >
           {selected === "four" ? (
             <RiRadioButtonFill />
@@ -183,6 +239,7 @@ export default function Segment1() {
             <PiNumberCircleFourFill />
           )}
         </label>
+
         <button className="whyhome" onClick={handlehome}>
           <GoHomeFill size={50} /> HOME
         </button>

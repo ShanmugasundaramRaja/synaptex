@@ -3,7 +3,7 @@ import { Container, Row } from "react-bootstrap";
 
 export default function Address() {
   const [imageSrc, setImageSrc] = useState(
-    "https://synaptex.pages.dev/addressland.jpg"
+    "https://synaptex.pages.dev/Newdressland.jpg"
   );
 
   // Update image source based on viewport aspect ratio
@@ -14,8 +14,8 @@ export default function Address() {
 
       setImageSrc(
         isPortrait
-          ? "https://synaptex.pages.dev/addressportrait.jpg"
-          : "https://synaptex.pages.dev/addressland.jpg"
+          ? "https://synaptex.pages.dev/Newdressport.jpg"
+          : "https://synaptex.pages.dev/Newdressland.jpg"
       );
     };
 

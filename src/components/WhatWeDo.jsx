@@ -13,36 +13,51 @@ import { RiRadioButtonFill } from "react-icons/ri";
 import Whyloader from "./Whyloader";
 
 export default function Segment1() {
-  const [loading, setLoading] = useState(() => {
-    const hasLoaded = sessionStorage.getItem("whyLoaderShown");
-    return hasLoaded ? false : true;
-  });
-
-  useEffect(() => {
-    if (!loading) return;
-    const timer = setTimeout(() => {
-      setLoading(false);
-      sessionStorage.setItem("whyLoaderShown", "true");
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, [loading]);
-
-  // current selected slide
-  const [selected, setSelected] = useState(() => {
-    return window.innerWidth < 1024 ? "one" : "two";
-  });
-
   const navigate = useNavigate();
   const handlehome = () => navigate("/");
 
-  // ✅ helper to sync React + radio input
+  // --- Loader State ---
+  const totalAssets = 5; // 1 image + 4 videos
+  const [assetsLoaded, setAssetsLoaded] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  const handleAssetLoad = () => setAssetsLoaded((prev) => prev + 1);
+
+  // First-time-only loader using sessionStorage
+  useEffect(() => {
+    const hasLoaded = sessionStorage.getItem("whyLoaderShown");
+    if (hasLoaded) {
+      setLoading(false);
+    }
+  }, []);
+
+  // Hide loader when all assets are loaded
+  useEffect(() => {
+    if (assetsLoaded >= totalAssets) {
+      setLoading(false);
+      sessionStorage.setItem("whyLoaderShown", "true");
+    }
+  }, [assetsLoaded]);
+
+  // Safety timeout in case some videos never fire events
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+      sessionStorage.setItem("whyLoaderShown", "true");
+    }, 5000); // 5 seconds max
+    return () => clearTimeout(timer);
+  }, []);
+
+  // --- Carousel state ---
+  const [selected, setSelected] = useState(() =>
+    window.innerWidth < 1024 ? "one" : "two"
+  );
   const setSlide = (pos) => {
     setSelected(pos);
     const input = document.getElementById(pos);
     if (input) input.checked = true;
   };
 
-  // ✅ resize listener to reset default slide
   useEffect(() => {
     const handleResize = () => {
       setSlide(window.innerWidth < 1024 ? "one" : "two");
@@ -52,7 +67,7 @@ export default function Segment1() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // ✅ swipe detection
+  // Swipe detection
   const carouselRef = useRef(null);
   useEffect(() => {
     const el = carouselRef.current;
@@ -64,27 +79,17 @@ export default function Segment1() {
     const handleTouchStart = (e) => {
       startX = e.touches[0].clientX;
     };
-
     const handleTouchMove = (e) => {
       endX = e.touches[0].clientX;
     };
-
     const handleTouchEnd = () => {
       if (!startX || !endX) return;
       const diff = startX - endX;
-
-      // threshold to avoid tiny movements
       if (Math.abs(diff) > 50) {
         const slides = ["one", "two", "three", "four"];
         const idx = slides.indexOf(selected);
-
-        if (diff > 0 && idx < slides.length - 1) {
-          // swipe left → next
-          setSlide(slides[idx + 1]);
-        } else if (diff < 0 && idx > 0) {
-          // swipe right → prev
-          setSlide(slides[idx - 1]);
-        }
+        if (diff > 0 && idx < slides.length - 1) setSlide(slides[idx + 1]);
+        else if (diff < 0 && idx > 0) setSlide(slides[idx - 1]);
       }
       startX = 0;
       endX = 0;
@@ -101,14 +106,12 @@ export default function Segment1() {
     };
   }, [selected]);
 
-  if (loading) {
-    return <Whyloader />;
-  }
+  if (loading) return <Whyloader />;
 
   return (
     <>
       <Row>
-        {/* hidden radios that CSS carousel listens to */}
+        {/* hidden radios */}
         <input
           type="radio"
           name="position"
@@ -134,111 +137,63 @@ export default function Segment1() {
           defaultChecked={selected === "four"}
         />
 
+        {/* title image */}
         <img
           src="https://synaptex.pages.dev/srcassets/WhyUs.png"
           className="WhyUs"
           alt="title"
-          loading="lazy"
+          onLoad={handleAssetLoad}
         />
 
-        {/* carousel */}
+        {/* carousel videos */}
         <main id="carousel" ref={carouselRef}>
-          <div className="item" onClick={() => setSlide("one")}>
-            <video
-              src="https://synaptex.pages.dev/Home%20(3).mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="cardVideo"
-              preload="auto"
-            />
-          </div>
-          <div className="item item2" onClick={() => setSlide("two")}>
-            <video
-              src="https://synaptex.pages.dev/Home%20(4).mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="cardVideo"
-              preload="auto"
-            />
-          </div>
-          <div className="item item3" onClick={() => setSlide("three")}>
-            <video
-              src="https://synaptex.pages.dev/srcassets/whyus3.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="cardVideo"
-              preload="auto"
-            />
-          </div>
-          <div className="item item4" onClick={() => setSlide("four")}>
-            <video
-              src="https://synaptex.pages.dev/srcassets/whyus4.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="cardVideo"
-              preload="auto"
-            />
-          </div>
+          {[
+            "https://synaptex.pages.dev/Home%20(3).mp4",
+            "https://synaptex.pages.dev/Home%20(4).mp4",
+            "https://synaptex.pages.dev/srcassets/whyus3.mp4",
+            "https://synaptex.pages.dev/srcassets/whyus4.mp4",
+          ].map((src, i) => (
+            <div
+              className={`item item${i + 1}`}
+              key={i}
+              onClick={() => setSlide(["one", "two", "three", "four"][i])}
+            >
+              <video
+                src={src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="cardVideo"
+                preload="auto"
+                onLoadedMetadata={handleAssetLoad}
+              />
+            </div>
+          ))}
         </main>
       </Row>
 
       {/* page controls */}
       <div className="pages">
-        <label
-          htmlFor="one"
-          onClick={() => setSlide("one")}
-          style={{ fontSize: "3rem", color: "beige" }}
-        >
-          {selected === "one" ? (
-            <RiRadioButtonFill />
-          ) : (
-            <PiNumberCircleOneFill />
-          )}
-        </label>
-
-        <label
-          htmlFor="two"
-          onClick={() => setSlide("two")}
-          style={{ fontSize: "3rem", color: "beige" }}
-        >
-          {selected === "two" ? (
-            <RiRadioButtonFill />
-          ) : (
-            <PiNumberCircleTwoFill />
-          )}
-        </label>
-
-        <label
-          htmlFor="three"
-          onClick={() => setSlide("three")}
-          style={{ fontSize: "3rem", color: "beige" }}
-        >
-          {selected === "three" ? (
-            <RiRadioButtonFill />
-          ) : (
-            <PiNumberCircleThreeFill />
-          )}
-        </label>
-
-        <label
-          htmlFor="four"
-          onClick={() => setSlide("four")}
-          style={{ fontSize: "3rem", color: "beige" }}
-        >
-          {selected === "four" ? (
-            <RiRadioButtonFill />
-          ) : (
-            <PiNumberCircleFourFill />
-          )}
-        </label>
+        {["one", "two", "three", "four"].map((id, i) => (
+          <label
+            key={i}
+            htmlFor={id}
+            onClick={() => setSlide(id)}
+            style={{ fontSize: "3rem", color: "beige" }}
+          >
+            {selected === id ? (
+              <RiRadioButtonFill />
+            ) : (
+              [
+                PiNumberCircleOneFill,
+                PiNumberCircleTwoFill,
+                PiNumberCircleThreeFill,
+                PiNumberCircleFourFill,
+              ][i]()
+            )}
+          </label>
+        ))}
 
         <button className="whyhome" onClick={handlehome}>
           <GoHomeFill size={50} /> HOME

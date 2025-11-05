@@ -21,7 +21,7 @@ const Nav = ({
     navigate("/aboutus");
   };
   const handleProducts = () => {
-    navigate("/products");
+    navigate("/products.html");
   };
 
   return (
@@ -33,9 +33,9 @@ const Nav = ({
       <Row className={`nav ${menuOpen ? "nav-open" : ""}`}>
         {/* Conditionally render About Us */}
         {!isFirefox && (
-          <button className="btn-12" onClick={handleClick}>
-            ABOUT US
-          </button>
+          <a className="btn-link" href="/aboutus.html">
+            <button className="btn-12">ABOUT US</button>
+          </a>
         )}
         <button className="btn-12" onClick={onScrollToSection1}>
           SERVICES
@@ -43,9 +43,9 @@ const Nav = ({
         <button className="btn-12" onClick={() => navigate("/whyus")}>
           WHY US
         </button>
-        <button className="btn-12" onClick={handleProducts}>
-          PRODUCTS
-        </button>
+        <a className="btn-link" href="/products.html">
+          <button className="btn-12">PRODUCTS</button>
+        </a>
         <button className="btn-12" onClick={onScrollToSection3}>
           CERTIFICATIONS
         </button>

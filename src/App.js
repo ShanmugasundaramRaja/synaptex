@@ -12,11 +12,10 @@ import Segment1 from "./components/WhatWeDo";
 
 
 
-import Carousel from "./components/Carousel";
-import News from "./components/News";
 
 
-import Aboutus from "./components/Aboutus";
+
+
 
 
 
@@ -60,10 +59,9 @@ const section1Ref = useRef(null);
                
                   
      
-          
-          < Route path="/aboutus"  element={<Aboutus/>} />
-            <Route path="/products" element={<Carousel />} />
-             <Route path="/whatsnext" element={<News />} />
+ 
+       
+      
                    
                      
             

@@ -8,9 +8,7 @@ export default function Orbit() {
   const handlejoinus = () => {
     navigate("/joinus");
   };
-  const handlenext = () => {
-    navigate("/whatsnext");
-  };
+
   return (
     <Container fluid className="orbitfluid">
       <img
@@ -21,9 +19,9 @@ export default function Orbit() {
       <div className="orbitcontainer">
         <div className="orbitcircle">
           <div className="orbit orbit-top">
-            <button className="orbitbtn" onClick={handlenext}>
-              NEXT CHAPTER
-            </button>
+            <a className="btn-link" href="/whatsnext.html">
+              <button className="orbitbtn">NEXT CHAPTER</button>
+            </a>
           </div>
           <div className="orbit orbit-bottom">
             <button className="orbitbtn" onClick={handlejoinus}>

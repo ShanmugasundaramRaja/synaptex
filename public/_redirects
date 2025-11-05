@@ -1,0 +1,7 @@
+# Serve static HTML files directly (no routing through React)
+/whatsnext.html /whatsnext.html 200
+/aboutus.html /aboutus.html 200
+/products.html /products.html 200
+
+# React SPA catch-all (for all other routes)
+/* /index.html 200

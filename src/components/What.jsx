@@ -1,19 +1,12 @@
-// What.jsx
-import React, { useRef, useEffect, useState, useContext } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import "../WhatWeDo.css";
-import { AssetContext } from "./AssetContext";
 
 export default function What({ section1Ref }) {
   const [videoSrc, setVideoSrc] = useState(
     "https://synaptex.pages.dev/srcassets/WhatWeDo.mp4"
   );
   const videoRef = useRef(null);
-  const { registerAsset, assetLoaded } = useContext(AssetContext);
-
-  useEffect(() => {
-    registerAsset();
-  }, [registerAsset]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -21,6 +14,7 @@ export default function What({ section1Ref }) {
 
     video.playbackRate = 0.8;
 
+    // Force autoplay programmatically
     const tryPlay = async () => {
       try {
         await video.play();
@@ -53,14 +47,13 @@ export default function What({ section1Ref }) {
         <video
           ref={videoRef}
           src={videoSrc}
-          preload="auto"
+          preload="auto" // encourage buffering for autoplay
           autoPlay
           muted
           loop
           playsInline
           className="responsive-video"
           style={{ paddingLeft: 0, paddingRight: 0 }}
-          onCanPlayThrough={assetLoaded}
         />
       </Row>
     </Container>

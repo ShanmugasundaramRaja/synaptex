@@ -17,26 +17,34 @@ export default function Segment1() {
   const handlehome = () => navigate("/");
 
   // --- Loader State ---
-  const [loading, setLoading] = useState(() => {
-    // Check if already loaded in this session
-    return !sessionStorage.getItem("segment1Loaded");
-  });
-  const loadedAssets = useRef(0);
+  const totalAssets = 5; // 1 image + 4 videos
+  const [assetsLoaded, setAssetsLoaded] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  const handleAssetLoad = () => {
-    loadedAssets.current += 1;
-    if (loadedAssets.current === 5) {
+  const handleAssetLoad = () => setAssetsLoaded((prev) => prev + 1);
+
+  // First-time-only loader using sessionStorage
+  useEffect(() => {
+    const hasLoaded = sessionStorage.getItem("whyLoaderShown");
+    if (hasLoaded) {
       setLoading(false);
-      sessionStorage.setItem("segment1Loaded", "true");
     }
-  };
+  }, []);
 
-  // Safety timeout
+  // Hide loader when all assets are loaded
+  useEffect(() => {
+    if (assetsLoaded >= totalAssets) {
+      setLoading(false);
+      sessionStorage.setItem("whyLoaderShown", "true");
+    }
+  }, [assetsLoaded]);
+
+  // Safety timeout in case some videos never fire events
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-      sessionStorage.setItem("segment1Loaded", "true");
-    }, 5000);
+      sessionStorage.setItem("whyLoaderShown", "true");
+    }, 5000); // 5 seconds max
     return () => clearTimeout(timer);
   }, []);
 
@@ -158,7 +166,7 @@ export default function Segment1() {
                 playsInline
                 className="cardVideo"
                 preload="auto"
-                onCanPlayThrough={handleAssetLoad}
+                onLoadedMetadata={handleAssetLoad}
               />
             </div>
           ))}

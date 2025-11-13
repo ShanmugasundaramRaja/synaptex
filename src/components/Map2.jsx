@@ -1,10 +1,8 @@
-// MiniMap2.jsx
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { useEffect, useContext } from "react";
-import { AssetContext } from "./AssetContext";
 
+// Fix Leaflet's default icon paths
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
@@ -14,28 +12,21 @@ L.Icon.Default.mergeOptions({
 });
 
 const MiniMap2 = () => {
-  const { registerAsset, assetLoaded } = useContext(AssetContext);
-  const markerPosition = [49.40844, 8.68417];
+  const markerPosition = [49.40844, 8.68417]; // Richard-Kuhn-Str. 5, Heidelberg
   const position = [49.40844, 8.68917];
-
-  useEffect(() => {
-    registerAsset();
-    assetLoaded();
-  }, [registerAsset, assetLoaded]);
-
   return (
     <div style={{ maxWidth: "250px", height: "200px" }}>
       <MapContainer
         center={position}
         zoom={13}
         scrollWheelZoom={false}
-        zoomControl={false}
+        zoomControl={false} // disables zoom +/− buttons
         attributionControl={false}
         style={{ height: "100%", width: "100%" }}
       >
         <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
         <Marker position={markerPosition}>
-          <Popup>Am Lerchenbuckel 5, Heidelberg</Popup>
+          <Popup>Richard-Kuhn-Straße 5, Heidelberg</Popup>
         </Marker>
       </MapContainer>
     </div>

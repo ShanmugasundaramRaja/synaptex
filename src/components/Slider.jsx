@@ -1,19 +1,13 @@
-// Slider.jsx
-import { useRef, useState, useEffect, useContext } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
-import { AssetContext } from "./AssetContext";
 
 export default function Slider() {
   const [videoSrc, setVideoSrc] = useState(
     "https://synaptex.pages.dev/Untitled%20design%20(1).mp4"
   );
   const videoRef = useRef(null);
-  const { registerAsset, assetLoaded } = useContext(AssetContext);
 
-  useEffect(() => {
-    registerAsset();
-  }, [registerAsset]);
-
+  // Update video src based on viewport ratio
   useEffect(() => {
     const updateVideoSrc = () => {
       const { innerWidth: width, innerHeight: height } = window;
@@ -26,11 +20,12 @@ export default function Slider() {
       );
     };
 
-    updateVideoSrc();
+    updateVideoSrc(); // Initial check
     window.addEventListener("resize", updateVideoSrc);
     return () => window.removeEventListener("resize", updateVideoSrc);
   }, []);
 
+  // Ensure autoplay, muted, and playback rate
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -47,20 +42,18 @@ export default function Slider() {
 
     tryPlay();
   }, [videoSrc]);
-
   return (
     <Container fluid>
       <Row>
         <video
           ref={videoRef}
           src={videoSrc}
-          preload="auto"
+          preload="auto" // preload to improve autoplay success
           autoPlay
           muted
           loop
           playsInline
           style={{ paddingLeft: 0, paddingRight: 0 }}
-          onCanPlayThrough={assetLoaded}
         />
       </Row>
     </Container>

@@ -1,18 +1,12 @@
-// Who.jsx
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { AssetContext } from "./AssetContext";
 
 export default function Who() {
   const [imageSrc, setImageSrc] = useState(
     "https://synaptex.pages.dev/wholand.jpg"
   );
-  const { registerAsset, assetLoaded } = useContext(AssetContext);
 
-  useEffect(() => {
-    registerAsset();
-  }, [registerAsset]);
-
+  // Update image source based on viewport aspect ratio
   useEffect(() => {
     const updateImageSrc = () => {
       const { innerWidth: width, innerHeight: height } = window;
@@ -25,7 +19,7 @@ export default function Who() {
       );
     };
 
-    updateImageSrc();
+    updateImageSrc(); // Initial check
     window.addEventListener("resize", updateImageSrc);
     return () => window.removeEventListener("resize", updateImageSrc);
   }, []);
@@ -39,7 +33,6 @@ export default function Who() {
             alt="Who Row 1"
             className="img-fluid w-100"
             style={{ display: "block" }}
-            onLoad={assetLoaded}
           />
         </Col>
       </Row>

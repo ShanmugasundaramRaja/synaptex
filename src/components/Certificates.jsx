@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from "react";
+// Certificates.jsx
+import React, { useState, useEffect, useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { AssetContext } from "./AssetContext";
 
 export default function Certificates({ section3Ref }) {
   const [imageSrc, setImageSrc] = useState(
     "https://synaptex.pages.dev/certland.jpg"
   );
+  const { registerAsset, assetLoaded } = useContext(AssetContext);
 
-  // Update image source based on viewport aspect ratio
+  useEffect(() => {
+    registerAsset();
+  }, [registerAsset]);
+
   useEffect(() => {
     const updateImageSrc = () => {
       const { innerWidth: width, innerHeight: height } = window;
@@ -19,7 +25,7 @@ export default function Certificates({ section3Ref }) {
       );
     };
 
-    updateImageSrc(); // Initial check
+    updateImageSrc();
     window.addEventListener("resize", updateImageSrc);
     return () => window.removeEventListener("resize", updateImageSrc);
   }, []);
@@ -34,6 +40,7 @@ export default function Certificates({ section3Ref }) {
             className="img-fluid w-100"
             style={{ display: "block" }}
             ref={section3Ref}
+            onLoad={assetLoaded}
           />
         </Col>
       </Row>

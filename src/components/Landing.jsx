@@ -7,9 +7,10 @@ import Slider from "./Slider";
 import Address from "./Address";
 import Orbit from "./Orbit";
 import Home from "./Home";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import LandingLoader from "./LandingLoader";
 import Who from "./Who";
+import { AssetContext } from "./AssetContext";
 
 export default function Landing({
   onScrollToSection1,
@@ -19,21 +20,35 @@ export default function Landing({
   section1Ref,
   section3Ref,
 }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [homeReady, setHomeReady] = useState(false);
+  const { loadedAssets, totalAssets, resetAssets } = useContext(AssetContext);
+
+  useEffect(() => {
+    resetAssets();
+  }, [resetAssets]);
 
   useEffect(() => {
     const loaderShown = sessionStorage.getItem("landingLoaderShown");
 
     if (!loaderShown) {
       setLoading(true);
-      const timer = setTimeout(() => {
-        setLoading(false);
-        sessionStorage.setItem("landingLoaderShown", "true");
-      }, 1500);
-
-      return () => clearTimeout(timer);
+    } else {
+      setLoading(false);
+      setHomeReady(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (totalAssets > 0 && loadedAssets === totalAssets) {
+      setLoading(false);
+      sessionStorage.setItem("landingLoaderShown", "true");
+    }
+  }, [loadedAssets, totalAssets]);
+
+  const handleHomeReady = () => {
+    setHomeReady(true);
+  };
 
   if (loading) {
     return <LandingLoader />;
@@ -49,11 +64,15 @@ export default function Landing({
           onScrollToSection4={onScrollToSection4}
         />
         <Row>
-          <Home />
+          <Home onReady={handleHomeReady} />
         </Row>
       </Container>
 
-      <Container className="landing" fluid>
+      <Container
+        className="landing"
+        fluid
+        style={{ visibility: homeReady ? "visible" : "hidden" }}
+      >
         <Row>
           <Who />
         </Row>
@@ -72,7 +91,6 @@ export default function Landing({
         <Row>
           <Orbit />
         </Row>
-
         <Row>
           <Footer />
         </Row>

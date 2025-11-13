@@ -1,12 +1,18 @@
+// Footer.jsx
 import "../Footer.css";
 import { Link } from "react-router-dom";
-
 import MiniMap2 from "./Map2";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AssetContext } from "./AssetContext";
 
 export default function Footer() {
   const [iconSize, setIconSize] = useState(30);
+  const { registerAsset, assetLoaded } = useContext(AssetContext);
+
+  useEffect(() => {
+    registerAsset();
+  }, [registerAsset]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -17,13 +23,8 @@ export default function Footer() {
       }
     };
 
-    // Run once on mount
     handleResize();
-
-    // Listen for resize
     window.addEventListener("resize", handleResize);
-
-    // Cleanup
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -36,6 +37,7 @@ export default function Footer() {
               src="https://synaptex.pages.dev/Home (3240 x 1080 px).png"
               alt="Logo"
               loading="lazy"
+              onLoad={assetLoaded}
             />
           </div>
 
@@ -60,7 +62,7 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Address</h4>
             <p>
-              Richard Kuhn Strasse 5 Heidelberg, Germany 69123
+              Am Lerchenbuckel 5 Heidelberg, Germany 69123
               <br />
               info@synaptexglobal.com
             </p>

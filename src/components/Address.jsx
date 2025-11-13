@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from "react";
+// Address.jsx
+import React, { useState, useEffect, useContext } from "react";
 import { Container, Row } from "react-bootstrap";
+import { AssetContext } from "./AssetContext";
 
 export default function Address() {
   const [imageSrc, setImageSrc] = useState(
     "https://synaptex.pages.dev/Newdressland.jpg"
   );
+  const { registerAsset, assetLoaded } = useContext(AssetContext);
 
-  // Update image source based on viewport aspect ratio
+  useEffect(() => {
+    registerAsset();
+  }, [registerAsset]);
+
   useEffect(() => {
     const updateImageSrc = () => {
       const { innerWidth: width, innerHeight: height } = window;
@@ -19,7 +25,7 @@ export default function Address() {
       );
     };
 
-    updateImageSrc(); // Initial check
+    updateImageSrc();
     window.addEventListener("resize", updateImageSrc);
     return () => window.removeEventListener("resize", updateImageSrc);
   }, []);
@@ -36,6 +42,7 @@ export default function Address() {
             paddingLeft: 0,
             paddingRight: 0,
           }}
+          onLoad={assetLoaded}
         />
       </Row>
     </Container>

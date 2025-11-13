@@ -1,13 +1,18 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import { Container, Row } from "react-bootstrap";
+import { AssetContext } from "./AssetContext";
 
-export default function Home() {
+export default function Home({ onReady }) {
   const [videoSrc, setVideoSrc] = useState(
     "https://synaptex.pages.dev/srcassets/Home.mp4"
   );
   const videoRef = useRef(null);
+  const { registerAsset, assetLoaded } = useContext(AssetContext);
 
-  // Update video source based on viewport aspect ratio
+  useEffect(() => {
+    registerAsset();
+  }, [registerAsset]);
+
   useEffect(() => {
     const updateVideoSrc = () => {
       const { innerWidth: width, innerHeight: height } = window;
@@ -20,12 +25,11 @@ export default function Home() {
       );
     };
 
-    updateVideoSrc(); // Initial check
+    updateVideoSrc();
     window.addEventListener("resize", updateVideoSrc);
     return () => window.removeEventListener("resize", updateVideoSrc);
   }, []);
 
-  // Ensure autoplay, muted, and playbackRate
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -42,6 +46,14 @@ export default function Home() {
 
     tryPlay();
   }, [videoSrc]);
+
+  const handleAssetLoaded = () => {
+    assetLoaded();
+    if (onReady) {
+      onReady();
+    }
+  };
+
   return (
     <Container fluid>
       <Row>
@@ -55,6 +67,7 @@ export default function Home() {
           playsInline
           style={{ paddingLeft: 0, paddingRight: 0 }}
           className="responsive-video"
+          onCanPlayThrough={handleAssetLoaded}
         />
       </Row>
     </Container>

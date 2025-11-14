@@ -60,7 +60,7 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Address</h4>
             <p>
-              Richard Kuhn Strasse 5 Heidelberg, Germany 69123
+              Am Lerchenbuckel 5 Heidelberg, Germany 69123
               <br />
               info@synaptexglobal.com
             </p>

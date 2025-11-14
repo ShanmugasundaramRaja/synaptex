@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "../Contact2.css";
-import { db, storage } from "../firebase"; // adjust path as needed
+import { db, storage } from "../firebase";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { RiUploadCloudFill } from "react-icons/ri";
@@ -11,40 +11,39 @@ import { useNavigate } from "react-router-dom";
 import Contact2loader from "./Contact2loader";
 
 const Contact2 = () => {
-  const [step, setStep] = useState(0);
-  const [isModalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  // --- Loader & Session State ---
   const [loading, setLoading] = useState(() => {
-    // Check if the loader has already been shown in this session
-    const hasLoaded = sessionStorage.getItem("contact2LoaderShown");
-    return hasLoaded ? false : true;
+    return !sessionStorage.getItem("contact2LoaderShown");
   });
 
   useEffect(() => {
-    if (!loading) return; // Loader already shown, skip
-
+    if (!loading) return;
     const timer = setTimeout(() => {
       setLoading(false);
-      sessionStorage.setItem("contact2LoaderShown", "true"); // Save loader shown state
+      sessionStorage.setItem("contact2LoaderShown", "true");
     }, 2000);
-
     return () => clearTimeout(timer);
   }, [loading]);
-  const navigate = useNavigate();
-  const handlehome = () => {
-    navigate("/");
-  };
+
+  // --- Form State ---
+  const [step, setStep] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [formData, setFormData] = useState(() => {
     const saved = localStorage.getItem("formData");
     return saved ? JSON.parse(saved) : {};
   });
+
+  const [files, setFiles] = useState({});
+
+  // --- Effects ---
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const [files, setFiles] = useState({});
-  useEffect(() => {
-    console.log("Current files:", files);
-  }, [files]);
 
   useEffect(() => {
     localStorage.setItem("formData", JSON.stringify(formData));
@@ -54,15 +53,17 @@ const Contact2 = () => {
     const handleUnload = () => {
       localStorage.removeItem("formData");
     };
-
     window.addEventListener("beforeunload", handleUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleUnload);
-    };
+    return () => window.removeEventListener("beforeunload", handleUnload);
   }, []);
 
-  const [direction, setDirection] = useState(0);
+  // --- Handlers ---
+  const handlehome = () => navigate("/");
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const nextStep = (e) => {
     e.preventDefault();
@@ -76,6 +77,80 @@ const Contact2 = () => {
     setStep((prev) => Math.max(prev - 1, 0));
   };
 
+  const handleFileChange = (fieldName) => (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFiles((prev) => ({ ...prev, [fieldName]: file }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const requiredTextFields = Array.from({ length: 44 }, (_, i) => `q${i}`);
+    const missingAnswers = requiredTextFields.filter(
+      (key) => !formData[key]?.trim()
+    );
+
+    if (missingAnswers.length > 0) {
+      alert("⚠️ Please fill out all required text answers before submitting.");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+
+      // Upload files to Firebase Storage
+      const fileUploadPromises = Object.entries(files).map(
+        async ([key, file]) => {
+          if (!file) return null;
+
+          const timestamp = Date.now();
+          const storageRef = ref(
+            storage,
+            `submissions/${timestamp}/${key}_${file.name}`
+          );
+
+          await uploadBytes(storageRef, file);
+          const downloadURL = await getDownloadURL(storageRef);
+
+          return { key, url: downloadURL };
+        }
+      );
+
+      const uploadedFiles = await Promise.all(fileUploadPromises);
+
+      // Prepare submission data
+      const submissionData = {
+        ...formData,
+        files: {},
+        submittedAt: new Date().toISOString(),
+      };
+
+      uploadedFiles.forEach((fileObj) => {
+        if (fileObj) {
+          submissionData.files[fileObj.key] = fileObj.url;
+        }
+      });
+
+      // Store in Firestore
+      const submissionsCol = collection(db, "submissions");
+      const newDocRef = doc(submissionsCol);
+      await setDoc(newDocRef, submissionData);
+
+      setModalOpen(true);
+      setFormData({});
+      setFiles({});
+      localStorage.removeItem("formData");
+    } catch (error) {
+      console.error("❌ Error submitting form:", error);
+      setModalOpen(true);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // --- Animation Variants ---
   const fieldsetVariants = {
     initial: (direction) => ({
       opacity: 0,
@@ -95,18 +170,15 @@ const Contact2 = () => {
       transition: { duration: 0.6, ease: "easeInOut" },
     }),
   };
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+
+  // --- Form Steps ---
   const steps = [
     {
       title: "Company Introduction",
-
       content: (
         <>
           <label>
-            <h3>Name of your Company</h3>{" "}
+            <h3>Name of your Company</h3>
           </label>
           <textarea
             name="q0"
@@ -114,8 +186,9 @@ const Contact2 = () => {
             value={formData.q0 || ""}
             onChange={handleInputChange}
           />
+
           <label>
-            <h3>Location of your Company</h3>{" "}
+            <h3>Location of your Company</h3>
           </label>
           <textarea
             name="q1"
@@ -123,6 +196,7 @@ const Contact2 = () => {
             value={formData.q1 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Upload Company Profile</h3>
           </label>
@@ -134,14 +208,11 @@ const Contact2 = () => {
             id="companyProfile"
             name="companyProfile"
             className="hidden-file-input"
-            onChange={(e) => {
-              const file = e.target.files[0];
-              setFiles((prev) => ({ ...prev, companyProfile: file }));
-            }}
+            onChange={handleFileChange("companyProfile")}
           />
 
           <label>
-            <h3>Company's Annual Turnover (INR, EUR or USD)</h3>{" "}
+            <h3>Company's Annual Turnover (INR, EUR or USD)</h3>
           </label>
           <textarea
             name="q2"
@@ -149,6 +220,7 @@ const Contact2 = () => {
             value={formData.q2 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Number of Employees (Factory & Office)</h3>
           </label>
@@ -158,6 +230,7 @@ const Contact2 = () => {
             value={formData.q3 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Monthly Production Capacity (Units or Value)</h3>
           </label>
@@ -167,26 +240,27 @@ const Contact2 = () => {
             value={formData.q4 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Key machinery and Infrastructure(In-House)</h3>
           </label>
-
           <textarea
             name="q5"
             placeholder="Answer"
             value={formData.q5 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Processes Outsourced and it's Infrastructure</h3>
           </label>
-
           <textarea
             name="q6"
             placeholder="Answer"
             value={formData.q6 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Exported countries</h3>
           </label>
@@ -196,6 +270,7 @@ const Contact2 = () => {
             value={formData.q7 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Key Notable Clients ( If not Confidential)</h3>
           </label>
@@ -205,6 +280,7 @@ const Contact2 = () => {
             value={formData.q8 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>List all Product Categories you offer</h3>
           </label>
@@ -214,6 +290,7 @@ const Contact2 = () => {
             value={formData.q9 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Do you have in-house design and r&d teams</h3>
           </label>
@@ -228,24 +305,20 @@ const Contact2 = () => {
     },
     {
       title: "PRODUCTION OVERVIEW",
-
       content: (
         <>
           <label>
             <h3>UPLOAD YOUR product catalog</h3>
           </label>
-          <label htmlFor="companyProfile" className="custom-file-upload">
+          <label htmlFor="productCatalog" className="custom-file-upload">
             <RiUploadCloudFill size={30} />
           </label>
           <input
             type="file"
-            id="companyProfile"
+            id="productCatalog"
             name="productCatalog"
             className="hidden-file-input"
-            onChange={(e) => {
-              const file = e.target.files[0];
-              setFiles((prev) => ({ ...prev, productCatalog: file }));
-            }}
+            onChange={handleFileChange("productCatalog")}
           />
 
           <label>
@@ -257,6 +330,7 @@ const Contact2 = () => {
             value={formData.q11 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>sampling free or chargeable</h3>
           </label>
@@ -266,6 +340,7 @@ const Contact2 = () => {
             value={formData.q12 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>do you prefer tech-pack or physical samples</h3>
           </label>
@@ -275,6 +350,7 @@ const Contact2 = () => {
             value={formData.q13 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>do you provide lab-dips or strike-offs before production</h3>
           </label>
@@ -289,7 +365,6 @@ const Contact2 = () => {
     },
     {
       title: "LOGISTICS",
-
       content: (
         <>
           <label>
@@ -301,6 +376,7 @@ const Contact2 = () => {
             value={formData.q15 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>MOQ per product/color/design</h3>
           </label>
@@ -310,6 +386,7 @@ const Contact2 = () => {
             value={formData.q16 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Can you consolidate multiple SKUs into a single shipment</h3>
           </label>
@@ -319,6 +396,7 @@ const Contact2 = () => {
             value={formData.q17 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Do you support urgent orders or flexible delivery schedules</h3>
           </label>
@@ -328,6 +406,7 @@ const Contact2 = () => {
             value={formData.q18 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>preferred shipping term (FOB, CIF, DDP)</h3>
           </label>
@@ -337,6 +416,7 @@ const Contact2 = () => {
             value={formData.q19 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>What port do you usually ship from</h3>
           </label>
@@ -346,8 +426,9 @@ const Contact2 = () => {
             value={formData.q20 || ""}
             onChange={handleInputChange}
           />
+
           <label>
-            <h3>open to using the buyer’s nominated forwarder</h3>
+            <h3>open to using the buyer's nominated forwarder</h3>
           </label>
           <textarea
             name="q21"
@@ -360,7 +441,6 @@ const Contact2 = () => {
     },
     {
       title: "PRICING AND QUALITY CONTROL",
-
       content: (
         <>
           <label>
@@ -372,6 +452,7 @@ const Contact2 = () => {
             value={formData.q22 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>
               What are your payment terms? (e.g., T/T advance, L/C at sight,
@@ -384,6 +465,7 @@ const Contact2 = () => {
             value={formData.q23 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>
               Do you support secure payment platforms (e.g., PayPal, Escrow for
@@ -396,6 +478,7 @@ const Contact2 = () => {
             value={formData.q24 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>How long is your price validity</h3>
           </label>
@@ -418,6 +501,7 @@ const Contact2 = () => {
             value={formData.q26 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>What is your current quality claim or rejection rate</h3>
           </label>
@@ -427,6 +511,7 @@ const Contact2 = () => {
             value={formData.q27 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>
               How is your quality control process structured (e.g., in-line,
@@ -439,6 +524,7 @@ const Contact2 = () => {
             value={formData.q28 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>
               Are replacement or credit options available in case of defects
@@ -456,7 +542,7 @@ const Contact2 = () => {
     {
       title: "OTHER INFORMATION",
       title2:
-        "CERTIFICATION , PACKING , COMMUNICATION , DOCUMENTATION & OTHER INFORMATION",
+        "CERTIFICATION, PACKING, COMMUNICATION, DOCUMENTATION & OTHER INFORMATION",
       content: (
         <>
           <label>
@@ -470,6 +556,7 @@ const Contact2 = () => {
             value={formData.q30 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Do you have factory audit reports (BSCI, SEDEX)</h3>
           </label>
@@ -479,6 +566,7 @@ const Contact2 = () => {
             value={formData.q31 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>
               Are your products compliant with country-specific import
@@ -491,6 +579,7 @@ const Contact2 = () => {
             value={formData.q32 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Are you open to third-party inspections (SGS, Intertek)</h3>
           </label>
@@ -500,6 +589,7 @@ const Contact2 = () => {
             value={formData.q33 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>
               Do you support private label or buyer branding and wash care
@@ -512,6 +602,7 @@ const Contact2 = () => {
             value={formData.q34 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>
               Can you pack in custom polybags, cartons, or retail-ready formats
@@ -523,6 +614,7 @@ const Contact2 = () => {
             value={formData.q35 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Your point of contact for coordination</h3>
           </label>
@@ -532,8 +624,9 @@ const Contact2 = () => {
             value={formData.q36 || ""}
             onChange={handleInputChange}
           />
+
           <label>
-            <h3>your preferred mode of communication </h3>
+            <h3>your preferred mode of communication</h3>
           </label>
           <textarea
             name="q37"
@@ -541,8 +634,9 @@ const Contact2 = () => {
             value={formData.q37 || ""}
             onChange={handleInputChange}
           />
+
           <label>
-            <h3>Can you provide production timelines and frequent updates </h3>
+            <h3>Can you provide production timelines and frequent updates</h3>
           </label>
           <textarea
             name="q38"
@@ -550,9 +644,10 @@ const Contact2 = () => {
             value={formData.q38 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>
-              Are you open to visiting the buyer’s office or hosting buyer
+              Are you open to visiting the buyer's office or hosting buyer
               visits to your factory
             </h3>
           </label>
@@ -562,6 +657,7 @@ const Contact2 = () => {
             value={formData.q39 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>
               Do you provide complete shipping documents (invoice, packing list,
@@ -574,6 +670,7 @@ const Contact2 = () => {
             value={formData.q40 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Are you attending any trade fairs (e.g., Heimtextil)</h3>
           </label>
@@ -583,6 +680,7 @@ const Contact2 = () => {
             value={formData.q41 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>
               Are you open to signing a non-disclosure agreement (NDA) for
@@ -595,6 +693,7 @@ const Contact2 = () => {
             value={formData.q42 || ""}
             onChange={handleInputChange}
           />
+
           <label>
             <h3>Do you maintain inventory for any fast-moving SKUs</h3>
           </label>
@@ -608,83 +707,11 @@ const Contact2 = () => {
       ),
     },
   ];
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    const requiredTextFields = Array.from({ length: 44 }, (_, i) => `q${i}`);
-    const missingAnswers = requiredTextFields.filter(
-      (key) => !formData[key]?.trim()
-    );
-
-    if (missingAnswers.length > 0) {
-      alert("⚠️ Please fill out all required text answers before submitting.");
-      return;
-    }
-
-    try {
-      setLoading(true);
-
-      // 1. Upload files to Firebase Storage and get URLs
-      const fileUploadPromises = Object.entries(files).map(
-        async ([key, file]) => {
-          if (!file) return null;
-
-          // Create a unique file path, e.g. `submissions/{timestamp}/{key}_${file.name}`
-          const timestamp = Date.now();
-          const storageRef = ref(
-            storage,
-            `submissions/${timestamp}/${key}_${file.name}`
-          );
-
-          // Upload file
-          await uploadBytes(storageRef, file);
-
-          // Get downloadable URL
-          const downloadURL = await getDownloadURL(storageRef);
-
-          return { key, url: downloadURL };
-        }
-      );
-
-      const uploadedFiles = await Promise.all(fileUploadPromises);
-
-      // 2. Prepare final data object
-      const submissionData = {
-        ...formData,
-        files: {},
-        submittedAt: new Date().toISOString(),
-      };
-
-      uploadedFiles.forEach((fileObj) => {
-        if (fileObj) {
-          submissionData.files[fileObj.key] = fileObj.url;
-        }
-      });
-
-      // 3. Store form data + file URLs in Firestore
-      // Use a new doc with auto-id in a "submissions" collection
-      const submissionsCol = collection(db, "submissions");
-      const newDocRef = doc(submissionsCol);
-
-      await setDoc(newDocRef, submissionData);
-
-      setModalOpen(true);
-
-      // Optional: clear form + local storage
-      setFormData({});
-      setFiles({});
-      localStorage.removeItem("formData");
-    } catch (error) {
-      console.error("❌ Error submitting form:", error);
-      setModalOpen(true);
-    } finally {
-      setLoading(false);
-    }
-  };
   if (loading) {
-    // Show loader while `loading` is true
     return <Contact2loader />;
   }
+
   return (
     <>
       <img
@@ -695,19 +722,16 @@ const Contact2 = () => {
       />
       <div className="homebutrow">
         <GoHomeFill style={{ color: "beige" }} size={30} />
-        <button className=" btn-12 " onClick={handlehome}>
-          {" "}
+        <button className="btn-12" onClick={handlehome}>
           HOME
         </button>
       </div>
 
       <form id="msform" onSubmit={handleSubmit}>
         <ul id="progressbar">
-          <li className={step >= 0 ? "active" : ""}></li>
-          <li className={step >= 1 ? "active" : ""}></li>
-          <li className={step >= 2 ? "active" : ""}></li>
-          <li className={step >= 3 ? "active" : ""}></li>
-          <li className={step >= 4 ? "active" : ""}></li>
+          {[0, 1, 2, 3, 4].map((i) => (
+            <li key={i} className={step >= i ? "active" : ""}></li>
+          ))}
         </ul>
 
         <AnimatePresence custom={direction} mode="wait">
@@ -720,7 +744,9 @@ const Contact2 = () => {
             exit="exit"
           >
             <h2 className="fs-title">{steps[step].title}</h2>
-            <h3 className="fs-subtitle">{steps[step].title2}</h3>
+            {steps[step].title2 && (
+              <h3 className="fs-subtitle">{steps[step].title2}</h3>
+            )}
             {steps[step].content}
 
             <div>
@@ -742,16 +768,16 @@ const Contact2 = () => {
               ) : (
                 <button
                   className="submit action-button button-88"
-                  disabled={loading}
+                  disabled={isSubmitting}
                 >
-                  SUBMIT
+                  {isSubmitting ? "SUBMITTING..." : "SUBMIT"}
                 </button>
               )}
             </div>
           </motion.fieldset>
         </AnimatePresence>
       </form>
-      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}></Modal>
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 };

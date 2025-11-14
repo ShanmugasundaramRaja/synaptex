@@ -26,7 +26,7 @@ const MiniMap2 = () => {
       >
         <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
         <Marker position={markerPosition}>
-          <Popup>Richard-Kuhn-Straße 5, Heidelberg</Popup>
+          <Popup>Am Lerchenbuckel 5, Heidelberg</Popup>
         </Marker>
       </MapContainer>
     </div>

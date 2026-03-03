@@ -17,7 +17,7 @@ main#carousel {
   --middle: 3;
   --position: 2;
   z-index: 4;
-  margin-top: -22vh;
+  margin-top: -14vh;
   position: relative; /* stacking context */
 }
 
@@ -32,10 +32,10 @@ div.item,
    ========================= */
 .WhyUs {
   position: relative;
-  top: -3vh;
-  left: 0.625vw;
-  height: 27vh;
-  width: 18vw;
+  top: 2vh;
+  left: 2.25vw;
+  height: 18vh;
+  width: 14vw;
   object-fit: contain;
   display: inline-block;
 }
@@ -133,6 +133,16 @@ input#four:checked ~ main#carousel  { --position: 4; }
     --position: 2;
   }
 
+ .WhyUs {
+  position: relative;
+  top: -4vh;
+  left: 2.25vw;
+  height: 24vh;
+  width: 22vw;
+  object-fit: contain;
+  display: inline-block;
+} 
+
   div.item {
     width: 40vh;
     height: 60vh;
@@ -160,7 +170,7 @@ input#four:checked ~ main#carousel  { --position: 4; }
     width: 100px;
     height: 90px;
     left: 0;
-    top: -20px;
+    top: 20px;
   }
 }
 

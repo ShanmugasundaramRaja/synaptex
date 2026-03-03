@@ -1,28 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import Modal from "./Modal";
 import "../Contact.css";
-import emailjs from "@emailjs/browser";
 
 import { useNavigate } from "react-router-dom";
-import Contactloader from "./Contactloader";
+
+// Lazy-load non-critical components
+const Modal = lazy(() => import("./Modal"));
+const Contactloader = lazy(() => import("./Contactloader"));
 
 export default function Contact() {
   const [hovering, setHovering] = useState(false);
+
   const [loading, setLoading] = useState(() => {
-    // Check if the loader has already been shown in this session
     const hasLoaded = sessionStorage.getItem("contactLoaderShown");
     return hasLoaded ? false : true;
   });
+
   const [isModalOpen, setModalOpen] = useState(false);
+  const [sending, setSending] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loading) return; // Loader already shown, skip
+    if (!loading) return;
 
     const timer = setTimeout(() => {
       setLoading(false);
-      sessionStorage.setItem("contactLoaderShown", "true"); // Save loader shown state
+      sessionStorage.setItem("contactLoaderShown", "true");
     }, 2000);
 
     return () => clearTimeout(timer);
@@ -38,31 +41,33 @@ export default function Contact() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
 
-    emailjs
-      .send(
-        "service_yf53jlk", // Replace with your EmailJS service ID
-        "template_v3vk4bo", // Replace with your EmailJS template ID
+    if (sending) return;
+    setSending(true);
+
+    try {
+      // Load EmailJS only when needed (big perf win)
+      const { default: emailjs } = await import("@emailjs/browser");
+
+      await emailjs.send(
+        "service_yf53jlk",
+        "template_v3vk4bo",
         formData,
-        "6Lfq3ESdTbQaoftN5" // Replace with your EmailJS public key
-      )
-      .then((response) => {
-        console.log("SUCCESS!", response.status, response.text);
-        setModalOpen(true);
-      })
-      .catch((err) => {
-        console.error("FAILED...", err);
-        setModalOpen(true);
-      });
+        "6Lfq3ESdTbQaoftN5",
+      );
+
+      setModalOpen(true);
+    } catch (err) {
+      console.error("FAILED...", err);
+      setModalOpen(true);
+    } finally {
+      setSending(false);
+    }
   };
 
   const handleClick = () => {
@@ -71,8 +76,11 @@ export default function Contact() {
   };
 
   if (loading) {
-    // Show loader while `loading` is true
-    return <Contactloader />;
+    return (
+      <Suspense fallback={null}>
+        <Contactloader />
+      </Suspense>
+    );
   }
 
   return (
@@ -86,9 +94,11 @@ export default function Contact() {
             </h1>
           </div>
         </Col>
+
         <Col>
           <div className="box">
             <div className={hovering ? "text2" : "text"}>CONTACT US</div>
+
             <form onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="input-data">
@@ -99,6 +109,7 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder=" "
                     required
+                    autoComplete="given-name"
                   />
                   <div className="underline"></div>
                   <label>First Name</label>
@@ -112,6 +123,7 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder=" "
                     required
+                    autoComplete="family-name"
                   />
                   <div className="underline"></div>
                   <label>Last Name</label>
@@ -127,10 +139,13 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder=" "
                     required
+                    autoComplete="email"
+                    inputMode="email"
                   />
                   <div className="underline"></div>
                   <label>Email</label>
                 </div>
+
                 <div className="input-data">
                   <input
                     type="text"
@@ -139,6 +154,7 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder=" "
                     required
+                    autoComplete="organization"
                   />
                   <div className="underline"></div>
                   <label>Company</label>
@@ -165,8 +181,9 @@ export default function Contact() {
                   onMouseLeave={() => setHovering(false)}
                   className="button-78"
                   type="submit"
+                  disabled={sending}
                 >
-                  <h1>SUBMIT</h1>
+                  <h1>{sending ? "SENDING..." : "SUBMIT"}</h1>
                 </button>
 
                 <button
@@ -182,10 +199,9 @@ export default function Contact() {
             </form>
           </div>
 
-          <Modal
-            isOpen={isModalOpen}
-            onClose={() => setModalOpen(false)}
-          ></Modal>
+          <Suspense fallback={null}>
+            <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
+          </Suspense>
         </Col>
       </Row>
     </Container>

@@ -3,7 +3,7 @@ import { Container, Row } from "react-bootstrap";
 
 export default function Slider() {
   const [videoSrc, setVideoSrc] = useState(
-    "https://synaptex.pages.dev/Untitled%20design%20(1).mp4"
+    "https://synaptex.pages.dev/Untitled%20design%20(1).mp4",
   );
   const videoRef = useRef(null);
 
@@ -15,8 +15,8 @@ export default function Slider() {
 
       setVideoSrc(
         isPortraitRatio
-          ? "https://synaptex.pages.dev/SliderPortrait.mp4"
-          : "https://synaptex.pages.dev/Untitled%20design%20(1).mp4"
+          ? "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/srcassets/SYNAPTEXSLIDERPORT.mp4"
+          : "https://pub-1c90d57131af47bb83ef8cbe45591a57.r2.dev/factcropped.mp4",
       );
     };
 

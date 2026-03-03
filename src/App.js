@@ -8,7 +8,14 @@ import Contact2 from "./components/Contact2";
 import { useRef } from "react";
 import What from "./components/What";
 
+
 import Segment1 from "./components/WhatWeDo";
+import AboutUs from "./components/AboutUs";
+import Product from "./components/Product";
+
+
+
+
 
 
 
@@ -35,7 +42,7 @@ const section1Ref = useRef(null);
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
   return (
-   
+
     <Router>
       <Routes>
         <Route path="/" element={<Landing 
@@ -56,6 +63,9 @@ const section1Ref = useRef(null);
         <Route path="/What" element={<What/>}/>
         
            <Route path="/whyus" element={<Segment1/>}/>
+                <Route path="/aboutus" element={<AboutUs/>}/>
+                <Route path="/products" element={<Product />} />
+           
                
                   
      
@@ -78,6 +88,7 @@ const section1Ref = useRef(null);
      
       </Routes>
     </Router>
+  
  
   );
 }

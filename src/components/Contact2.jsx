@@ -89,7 +89,7 @@ const Contact2 = () => {
 
     const requiredTextFields = Array.from({ length: 44 }, (_, i) => `q${i}`);
     const missingAnswers = requiredTextFields.filter(
-      (key) => !formData[key]?.trim()
+      (key) => !formData[key]?.trim(),
     );
 
     if (missingAnswers.length > 0) {
@@ -108,14 +108,14 @@ const Contact2 = () => {
           const timestamp = Date.now();
           const storageRef = ref(
             storage,
-            `submissions/${timestamp}/${key}_${file.name}`
+            `submissions/${timestamp}/${key}_${file.name}`,
           );
 
           await uploadBytes(storageRef, file);
           const downloadURL = await getDownloadURL(storageRef);
 
           return { key, url: downloadURL };
-        }
+        },
       );
 
       const uploadedFiles = await Promise.all(fileUploadPromises);
@@ -718,8 +718,13 @@ const Contact2 = () => {
         src="https://synaptex.pages.dev/srcassets/Home%20(3).png"
         alt=""
         className="rotate-layer2"
-        loading="lazy"
+        fetchpriority="high"
+        decoding="async"
+        loading="eager"
+        width="1600"
+        height="1600"
       />
+
       <div className="homebutrow">
         <GoHomeFill style={{ color: "beige" }} size={30} />
         <button className="btn-12" onClick={handlehome}>

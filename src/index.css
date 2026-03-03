@@ -127,3 +127,12 @@ html, body {
   width: auto;
   flex: none;
 }
+.products-shell { visibility: hidden; }
+.products-shell.is-ready { visibility: visible; }
+
+body:not(.products-page) {
+  background: linear-gradient(90deg, #375d53, black);
+}
+body.products-page {
+  background: #0f0e0e; /* or black */
+}

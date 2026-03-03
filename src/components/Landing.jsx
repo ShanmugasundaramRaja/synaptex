@@ -5,11 +5,12 @@ import Footer from "./Footer";
 import Certificates from "./Certificates";
 import Slider from "./Slider";
 import Address from "./Address";
-import Orbit from "./Orbit";
+
 import Home from "./Home";
 import { useState, useEffect } from "react";
 import LandingLoader from "./LandingLoader";
 import Who from "./Who";
+import Segment1 from "./WhatWeDo";
 
 export default function Landing({
   onScrollToSection1,
@@ -17,6 +18,7 @@ export default function Landing({
   onScrollToSection3,
   onScrollToSection4,
   section1Ref,
+  section2Ref,
   section3Ref,
 }) {
   const [loading, setLoading] = useState(false);
@@ -61,6 +63,10 @@ export default function Landing({
           <What section1Ref={section1Ref} />
         </Row>
         <Row>
+          <Segment1 section2Ref={section2Ref} />
+        </Row>
+
+        <Row>
           <Certificates section3Ref={section3Ref} />
         </Row>
         <Row>
@@ -68,9 +74,6 @@ export default function Landing({
         </Row>
         <Row>
           <Slider />
-        </Row>
-        <Row>
-          <Orbit />
         </Row>
 
         <Row>

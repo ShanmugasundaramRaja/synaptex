@@ -60,7 +60,9 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Address</h4>
             <p>
-              Am Lerchenbuckel 5 Heidelberg, Germany 69123
+              Heidelberg - 69123 , Germany
+              <br />
+              Tiruchengode - 637211 , India
               <br />
               info@synaptexglobal.com
             </p>

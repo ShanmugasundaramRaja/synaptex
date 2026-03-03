@@ -17,13 +17,6 @@ const Nav = ({
   // Detect Firefox
   const isFirefox = typeof InstallTrigger !== "undefined";
 
-  const handleClick = () => {
-    navigate("/aboutus");
-  };
-  const handleProducts = () => {
-    navigate("/products.html");
-  };
-
   return (
     <div className="responsive-navbar">
       <div className="menu-toggle" onClick={toggleMenu}>
@@ -33,19 +26,21 @@ const Nav = ({
       <Row className={`nav ${menuOpen ? "nav-open" : ""}`}>
         {/* Conditionally render About Us */}
         {!isFirefox && (
-          <a className="btn-link" href="/aboutus.html">
-            <button className="btn-12">ABOUT US</button>
-          </a>
+          <button className="btn-12" onClick={() => navigate("/aboutus")}>
+            ABOUT US
+          </button>
         )}
         <button className="btn-12" onClick={onScrollToSection1}>
           SERVICES
         </button>
-        <button className="btn-12" onClick={() => navigate("/whyus")}>
+        <button className="btn-12" onClick={onScrollToSection2}>
           WHY US
         </button>
-        <a className="btn-link" href="/products.html">
-          <button className="btn-12">PRODUCTS</button>
-        </a>
+
+        <button className="btn-12" onClick={() => navigate("/products")}>
+          PRODUCTS
+        </button>
+
         <button className="btn-12" onClick={onScrollToSection3}>
           CERTIFICATIONS
         </button>

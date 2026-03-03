@@ -127,8 +127,6 @@ export default function Segment1({ section2Ref }) {
     return () => cancelAnimationFrame(t);
   }, [selected, slides]);
 
-  if (loading) return <Whyloader />;
-
   const seoText = `
 We operate both globally and locally, with embedded networks and on-ground partnerships across India and Europe. This presence gives us mobility, speed, and direct access—supporting end-to-end execution from sourcing and development to compliance, quality, and delivery. We offer premium textile products without premium costs by combining trusted supplier relationships, efficient coordination, and competitive pricing to deliver consistent value.
   `.trim();

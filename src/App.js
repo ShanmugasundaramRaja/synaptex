@@ -1,36 +1,9 @@
 import Contact from "./components/Contact";
 import Landing from "./components/Landing";
 import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
-
-
-import Contact2 from "./components/Contact2";
-
 import { useRef } from "react";
-import What from "./components/What";
-
-
-import Segment1 from "./components/WhatWeDo";
 import AboutUs from "./components/AboutUs";
 import Product from "./components/Product";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function App() {
 const section1Ref = useRef(null);
@@ -57,35 +30,10 @@ const section1Ref = useRef(null);
         
         />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/joinus" element={<Contact2 />} />
-      
 
-        <Route path="/What" element={<What/>}/>
-        
-           <Route path="/whyus" element={<Segment1/>}/>
+       
                 <Route path="/aboutus" element={<AboutUs/>}/>
                 <Route path="/products" element={<Product />} />
-           
-               
-                  
-     
- 
-       
-      
-                   
-                     
-            
-                     
-                    
-          
-   
-   
-  
-       
-    
-    
-     
-     
       </Routes>
     </Router>
   

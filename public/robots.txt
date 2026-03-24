@@ -1,1 +1,4 @@
-Sitemap: https://synaptexglobal.com
+User-agent: *
+Allow: /
+
+Sitemap: https://synaptexglobal.com/sitemap.xml

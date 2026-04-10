@@ -6,7 +6,7 @@
   --maxWidth: 1100px;
 }
 
-body {
+body.aboutus-page {
   margin: 0;
   background: linear-gradient(90deg, #375d53, black);
   font-family: var(--font1);

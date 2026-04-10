@@ -2,77 +2,106 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-   
-<link rel="preconnect" href="https://use.typekit.net" crossorigin>
 
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8TL61PQ49W"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-8TL61PQ49W');
-</script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6TPXV81T4"></script>
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
- <!-- your CSS file -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="https://assets.codepen.io/16327/MorphSVGPlugin3.min.js"></script>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@500&display=swap');
-</style>
-    <link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-  <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-/>
-
+    <!-- ============================================================
+         PRIMARY META — overridden per-page by react-helmet
+         ============================================================ -->
+    <title>Synaptex | Textile Sourcing Solutions</title>
     <meta
       name="description"
-      content="SYNAPTEX- TEXTILE SOURCING SOLUTIONS"
+      content="Synaptex connects global brands with trusted textile manufacturers. Sustainable fabric sourcing, quality control, and supply chain management from India to Europe."
     />
-<link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png">
-<!-- Add inside <head>, after the existing GSAP scripts -->
-<link rel="stylesheet" href="%PUBLIC_URL%/css/base.css" />
-<link rel="stylesheet" href="https://use.typekit.net/ccs0evy.css" />
-<script src="%PUBLIC_URL%/js/ScrollSmoother.min.js"></script>
-<script src="%PUBLIC_URL%/js/ScrollToPlugin.min.js"></script>
-<script src="%PUBLIC_URL%/js/SplitText.min.js"></script>
-<script src="%PUBLIC_URL%/js/imagesloaded.pkgd.min.js"></script>
-<link rel="manifest" href="%PUBLIC_URL%/site.webmanifest">
 
-    <title>SYNAPTEX-TEXTILE SOURCING SOLUTIONS</title>
+    <!-- ============================================================
+         FAVICONS & MANIFEST
+         ============================================================ -->
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/site.webmanifest" />
+
+    <!-- ============================================================
+         PRECONNECT — establish early connections to font + asset CDNs
+         ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin />
+
+    <!-- ============================================================
+         FONTS — single <link> per provider, no @import in <style>
+         ============================================================ -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Noto+Serif:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://use.typekit.net/ccs0evy.css" />
+
+    <!-- ============================================================
+         CSS — Bootstrap first, then app styles
+         ============================================================ -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/base.css" />
+
+    <!-- ============================================================
+         GSAP — local licensed plugins (ScrollSmoother, SplitText etc.)
+         loaded from /public/js/ only. No CDN GSAP alongside local GSAP.
+         ============================================================ -->
+    <script src="%PUBLIC_URL%/js/gsap.min.js" defer></script>
+    <script src="%PUBLIC_URL%/js/ScrollTrigger.min.js" defer></script>
+    <script src="%PUBLIC_URL%/js/ScrollSmoother.min.js" defer></script>
+    <script src="%PUBLIC_URL%/js/ScrollToPlugin.min.js" defer></script>
+    <script src="%PUBLIC_URL%/js/SplitText.min.js" defer></script>
+    <script src="%PUBLIC_URL%/js/imagesloaded.pkgd.min.js" defer></script>
+
+    <!-- ============================================================
+         BOOTSTRAP JS — deferred so it doesn't block parsing
+         ============================================================ -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+      defer
+    ></script>
+
+    <!-- ============================================================
+         GOOGLE ANALYTICS — single tag, async (non-blocking)
+         Replace G-XXXXXXXXXX with your active Measurement ID.
+         If you need two GA4 properties, add a second gtag('config')
+         call here rather than loading the gtag.js library twice.
+         ============================================================ -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8TL61PQ49W"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-8TL61PQ49W');
+      // Second property (if intentional — remove if not needed):
+      // gtag('config', 'G-S6TPXV81T4');
+    </script>
+
   </head>
   <body>
-
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>

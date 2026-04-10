@@ -788,25 +788,4 @@ top:15px
 }
 }
 
-/* OLD */
-body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: 'forma-djr-mono', sans-serif;
-  text-transform: uppercase;
-}
 
-/* NEW — scoped to products page only */
-body.products-page {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: 'forma-djr-mono', sans-serif;
-  text-transform: uppercase;
-}
-/* Scope this too */
-body.products-page {
-  height: 100%;
-  width: 100%;
-}
-
-/* And the loading animation */

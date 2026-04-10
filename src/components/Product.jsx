@@ -1,121 +1,154 @@
 import React, { useEffect, useLayoutEffect, useRef } from "react";
-import { Helmet } from "@dr.pogodin/react-helmet";
+
+/**
+ * IMPORTANT (required for FOUC fix):
+ * In your global CSS (e.g. src/index.css or App.css), add:
+ *
+ * .products-shell { visibility: hidden; }
+ * .products-shell.is-ready { visibility: visible; }
+ */
+
+function loadStylesheetOnce(href, dataKey) {
+  let link = document.querySelector(`link[data-key="${dataKey}"]`);
+  if (link) return link;
+
+  link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = href;
+  link.dataset.key = dataKey;
+  document.head.appendChild(link);
+  return link;
+}
+
+function loadScript(src, { type = "text/javascript" } = {}) {
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector(`script[data-src="${src}"]`);
+    if (existing) {
+      if (existing.dataset.loaded === "true") return resolve();
+      existing.addEventListener("load", resolve, { once: true });
+      existing.addEventListener("error", reject, { once: true });
+      return;
+    }
+
+    const s = document.createElement("script");
+    s.src = src;
+    s.type = type;
+    s.async = false; // preserve order
+    s.defer = false;
+    s.dataset.src = src;
+
+    s.onload = () => {
+      s.dataset.loaded = "true";
+      resolve();
+    };
+    s.onerror = reject;
+
+    document.body.appendChild(s);
+  });
+}
 
 export default function Product() {
   const shellRef = useRef(null);
-
   useLayoutEffect(() => {
     document.body.classList.add("products-page");
     return () => document.body.classList.remove("products-page");
   }, []);
 
-  useEffect(() => {
-    const s = document.createElement("script");
-    s.src = "/js/index.js";
-    s.type = "module";
-    s.dataset.src = "/js/index.js";
+  // CSS + FOUC guard (single source of truth)
+  useLayoutEffect(() => {
+    document.documentElement.className = "js";
+    document.body.classList.add("loading");
+    document.title = "Products";
 
-    // Only reveal shell after script has loaded
-    s.onload = () => {
+    // start hidden (FOUC guard)
+    shellRef.current?.classList.remove("is-ready");
+
+    // viewport safety for SPA
+    if (!document.querySelector('meta[name="viewport"]')) {
+      const m = document.createElement("meta");
+      m.name = "viewport";
+      m.content = "width=device-width, initial-scale=1";
+      document.head.appendChild(m);
+    }
+
+    const typekitKey = "products-css:https://use.typekit.net/ccs0evy.css";
+    const baseKey = "products-css:/css/base.css";
+
+    // Typekit can load in parallel (doesn't block reveal)
+    loadStylesheetOnce("https://use.typekit.net/ccs0evy.css", typekitKey);
+
+    // Base CSS controls reveal
+    const baseLink = loadStylesheetOnce("/css/base.css", baseKey);
+
+    let cancelled = false;
+    const reveal = () => {
+      if (cancelled) return;
       shellRef.current?.classList.add("is-ready");
     };
-    // Fail open — reveal anyway if script errors
-    s.onerror = () => {
-      shellRef.current?.classList.add("is-ready");
-    };
 
-    document.body.appendChild(s);
+    // If already applied (cached), reveal immediately
+    if (baseLink.sheet) {
+      reveal();
+    } else {
+      baseLink.addEventListener("load", reveal, { once: true });
+      baseLink.addEventListener("error", reveal, { once: true }); // fail open
+    }
 
     return () => {
+      cancelled = true;
       document.body.classList.remove("loading");
-      s.remove();
+
+      // Route-only: remove CSS so it can't affect other pages
+      document.querySelector(`link[data-key="${baseKey}"]`)?.remove();
+      document.querySelector(`link[data-key="${typekitKey}"]`)?.remove();
+
+      // Also hide shell again (in case of fast remount)
       shellRef.current?.classList.remove("is-ready");
+    };
+  }, []);
+
+  // Load JS in the exact order from your HTML
+  useEffect(() => {
+    let cancelled = false;
+
+    const run = async () => {
+      await loadScript("/js/gsap.min.js");
+      await loadScript("/js/ScrollTrigger.min.js");
+      await loadScript("/js/ScrollSmoother.min.js");
+      await loadScript("/js/ScrollToPlugin.min.js");
+      await loadScript("/js/SplitText.min.js");
+      await loadScript("/js/imagesloaded.pkgd.min.js");
+      await loadScript("/js/index.js", { type: "module" });
+
+      if (cancelled) return;
+    };
+
+    run().catch((e) => console.error("Product page scripts failed:", e));
+
+    return () => {
+      cancelled = true;
+
+      // Optional: if your /js/index.js can expose cleanup, call it:
+      // window.__PRODUCT_CLEANUP__?.();
     };
   }, []);
 
   return (
     <>
-      <Helmet>
-        <title>Products | Synaptex Textile Sourcing</title>
-        <meta
-          name="description"
-          content="Explore Synaptex's range of textile products — organic cotton, bamboo, lyocell, and sustainable fabric solutions for fashion and home textiles."
-        />
-        <link rel="canonical" href="https://synaptexglobal.com/products" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://synaptexglobal.com/products" />
-        <meta
-          property="og:title"
-          content="Products | Synaptex Textile Sourcing"
-        />
-        <meta
-          property="og:description"
-          content="Explore Synaptex's range of textile products — organic cotton, bamboo, lyocell, and sustainable fabric solutions for fashion and home textiles."
-        />
-        <meta
-          property="og:image"
-          content="https://synaptexglobal.com/og-image.jpg"
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "ItemList",
-              name: "Synaptex Product Categories",
-              description:
-                "Textile product categories sourced and supplied by Synaptex for global buyers.",
-              url: "https://synaptexglobal.com/products",
-              itemListElement: [
-                {
-                  "@type": "ListItem",
-                  position: 1,
-                  name: "Knitwear — Men",
-                  url: "https://synaptexglobal.com/products",
-                },
-                {
-                  "@type": "ListItem",
-                  position: 2,
-                  name: "Knitwear — Accessories",
-                  url: "https://synaptexglobal.com/products",
-                },
-                {
-                  "@type": "ListItem",
-                  position: 3,
-                  name: "Miscellaneous — Bags",
-                  url: "https://synaptexglobal.com/products",
-                },
-                {
-                  "@type": "ListItem",
-                  position: 4,
-                  name: "Infantwear & Youthwear",
-                  url: "https://synaptexglobal.com/products",
-                },
-                {
-                  "@type": "ListItem",
-                  position: 5,
-                  name: "Home & Living",
-                  url: "https://synaptexglobal.com/products",
-                },
-              ],
-            }),
-          }}
-        />
-      </Helmet>
       <div ref={shellRef} className="products-shell">
         <header className="frame">
           <img
             src="https://synaptex.pages.dev/Home%20(3240%20x%201080%20px).png"
-            alt="logo"
+            alt="synaptex"
             className="logo frame__title"
           />
           <nav className="frame__links">
-            <a className="line" href="/">
+            <Link to="/" className="line">
               HOME
-            </a>
-            <a className="line" href="/contact">
+            </Link>
+            <Link to="/contact" className="line">
               CONTACT
-            </a>
+            </Link>
           </nav>
         </header>
 
@@ -149,7 +182,7 @@ export default function Product() {
             <div className="scene">
               <h2 className="scene__title" data-speed="0.7">
                 <a href="#preview-2">
-                  <span>Knitwear — accesories</span>
+                  <span>Knitwear — accessories</span>
                 </a>
               </h2>
               <div className="carousel">

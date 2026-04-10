@@ -45,7 +45,7 @@ export default function Landing({
     <>
       <Helmet>
         <title>Synaptex | Textile Sourcing Solutions</title>
-        <meta name="description" content="..." />
+
         <link rel="canonical" href="https://synaptexglobal.com/" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://synaptexglobal.com/" />
@@ -56,6 +56,10 @@ export default function Landing({
         <meta
           property="og:description"
           content="Synaptex connects global brands with trusted textile manufacturers. Sustainable fabric sourcing, quality control, and supply chain management."
+        />
+        <meta
+          name="description"
+          content="Synaptex connects global brands with trusted textile manufacturers in India and Europe. Sustainable fabric sourcing, quality control, and supply chain management."
         />
         <meta
           property="og:image"

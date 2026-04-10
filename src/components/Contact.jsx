@@ -1,7 +1,7 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "../Contact.css";
-
+import { Helmet } from "@dr.pogodin/react-helmet";
 import { useNavigate } from "react-router-dom";
 
 // Lazy-load non-critical components
@@ -84,126 +84,169 @@ export default function Contact() {
   }
 
   return (
-    <Container fluid className={`body ${hovering ? "hovered" : ""}`}>
-      <Row className="contactrow">
-        <Col>
-          <div className="masking-container">
-            <h1 className="masked-text">
-              WE ARE <br />
-              LISTENING
-            </h1>
-          </div>
-        </Col>
+    <>
+      <Helmet>
+        <title>Contact | Synaptex Textile Sourcing</title>
+        <meta
+          name="description"
+          content="Get in touch with Synaptex for textile sourcing inquiries, partnerships, and supply chain solutions. We're here to help."
+        />
+        <link rel="canonical" href="https://synaptexglobal.com/contact" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://synaptexglobal.com/contact" />
+        <meta
+          property="og:title"
+          content="Contact | Synaptex Textile Sourcing"
+        />
+        <meta
+          property="og:description"
+          content="Get in touch with Synaptex for textile sourcing inquiries, partnerships, and supply chain solutions."
+        />
+        <meta
+          property="og:image"
+          content="https://synaptexglobal.com/og-image.jpg"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ContactPage",
+              name: "Contact Synaptex",
+              url: "https://synaptexglobal.com/contact",
+              description:
+                "Get in touch with Synaptex for textile sourcing inquiries, partnerships, and supply chain solutions.",
+              publisher: {
+                "@type": "Organization",
+                name: "Synaptex",
+                url: "https://synaptexglobal.com",
+              },
+            }),
+          }}
+        />
+      </Helmet>
 
-        <Col>
-          <div className="box">
-            <div className={hovering ? "text2" : "text"}>CONTACT US</div>
+      <Container fluid className={`body ${hovering ? "hovered" : ""}`}>
+        <Row className="contactrow">
+          <Col>
+            <div className="masking-container">
+              <h1 className="masked-text">
+                WE ARE <br />
+                LISTENING
+              </h1>
+            </div>
+          </Col>
 
-            <form onSubmit={handleSubmit}>
-              <div className="form-row">
-                <div className="input-data">
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    placeholder=" "
-                    required
-                    autoComplete="given-name"
-                  />
-                  <div className="underline"></div>
-                  <label>First Name</label>
+          <Col>
+            <div className="box">
+              <div className={hovering ? "text2" : "text"}>CONTACT US</div>
+
+              <form onSubmit={handleSubmit}>
+                <div className="form-row">
+                  <div className="input-data">
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      placeholder=" "
+                      required
+                      autoComplete="given-name"
+                    />
+                    <div className="underline"></div>
+                    <label>First Name</label>
+                  </div>
+
+                  <div className="input-data">
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      placeholder=" "
+                      required
+                      autoComplete="family-name"
+                    />
+                    <div className="underline"></div>
+                    <label>Last Name</label>
+                  </div>
                 </div>
 
-                <div className="input-data">
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    placeholder=" "
-                    required
-                    autoComplete="family-name"
-                  />
-                  <div className="underline"></div>
-                  <label>Last Name</label>
+                <div className="form-row">
+                  <div className="input-data">
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder=" "
+                      required
+                      autoComplete="email"
+                      inputMode="email"
+                    />
+                    <div className="underline"></div>
+                    <label>Email</label>
+                  </div>
+
+                  <div className="input-data">
+                    <input
+                      type="text"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      placeholder=" "
+                      required
+                      autoComplete="organization"
+                    />
+                    <div className="underline"></div>
+                    <label>Company</label>
+                  </div>
                 </div>
-              </div>
 
-              <div className="form-row">
-                <div className="input-data">
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder=" "
-                    required
-                    autoComplete="email"
-                    inputMode="email"
-                  />
-                  <div className="underline"></div>
-                  <label>Email</label>
+                <div className="form-row">
+                  <div className="input-data textarea">
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder=" "
+                      required
+                    />
+                    <div className="underline"></div>
+                    <label>Write your message</label>
+                  </div>
                 </div>
 
-                <div className="input-data">
-                  <input
-                    type="text"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleChange}
-                    placeholder=" "
-                    required
-                    autoComplete="organization"
-                  />
-                  <div className="underline"></div>
-                  <label>Company</label>
+                <div className="button-wrapper">
+                  <button
+                    onMouseEnter={() => setHovering(true)}
+                    onMouseLeave={() => setHovering(false)}
+                    className="button-78"
+                    type="submit"
+                    disabled={sending}
+                  >
+                    <h1>{sending ? "SENDING..." : "SUBMIT"}</h1>
+                  </button>
+
+                  <button
+                    type="button"
+                    onMouseEnter={() => setHovering(true)}
+                    onMouseLeave={() => setHovering(false)}
+                    onClick={handleClick}
+                    className="button-78"
+                  >
+                    <h1>BACK</h1>
+                  </button>
                 </div>
-              </div>
+              </form>
+            </div>
 
-              <div className="form-row">
-                <div className="input-data textarea">
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder=" "
-                    required
-                  />
-                  <div className="underline"></div>
-                  <label>Write your message</label>
-                </div>
-              </div>
-
-              <div className="button-wrapper">
-                <button
-                  onMouseEnter={() => setHovering(true)}
-                  onMouseLeave={() => setHovering(false)}
-                  className="button-78"
-                  type="submit"
-                  disabled={sending}
-                >
-                  <h1>{sending ? "SENDING..." : "SUBMIT"}</h1>
-                </button>
-
-                <button
-                  type="button"
-                  onMouseEnter={() => setHovering(true)}
-                  onMouseLeave={() => setHovering(false)}
-                  onClick={handleClick}
-                  className="button-78"
-                >
-                  <h1>BACK</h1>
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <Suspense fallback={null}>
-            <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
-          </Suspense>
-        </Col>
-      </Row>
-    </Container>
+            <Suspense fallback={null}>
+              <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
+            </Suspense>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }

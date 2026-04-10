@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import Certificates from "./Certificates";
 import Slider from "./Slider";
 import Address from "./Address";
-
+import { Helmet } from "@dr.pogodin/react-helmet";
 import Home from "./Home";
 import { useState, useEffect } from "react";
 import LandingLoader from "./LandingLoader";
@@ -43,6 +43,66 @@ export default function Landing({
 
   return (
     <>
+      <Helmet>
+        <title>Synaptex | Textile Sourcing Solutions</title>
+        <meta name="description" content="..." />
+        <link rel="canonical" href="https://synaptexglobal.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://synaptexglobal.com/" />
+        <meta
+          property="og:title"
+          content="Synaptex | Textile Sourcing Solutions"
+        />
+        <meta
+          property="og:description"
+          content="Synaptex connects global brands with trusted textile manufacturers. Sustainable fabric sourcing, quality control, and supply chain management."
+        />
+        <meta
+          property="og:image"
+          content="https://synaptexglobal.com/og-image.jpg"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Synaptex",
+              url: "https://synaptexglobal.com",
+              logo: "https://synaptexglobal.com/og-image.jpg",
+              description:
+                "Synaptex connects textile makers with global markets. Headquartered in Germany and active across Europe, we combine regional expertise with strategic sourcing to meet evolving market demands.",
+              email: "info@synaptexglobal.com",
+              address: [
+                {
+                  "@type": "PostalAddress",
+                  addressLocality: "Heidelberg",
+                  postalCode: "69123",
+                  addressCountry: "DE",
+                },
+                {
+                  "@type": "PostalAddress",
+                  addressLocality: "Tiruchengode",
+                  postalCode: "637211",
+                  addressCountry: "IN",
+                },
+              ],
+              sameAs: [
+                "https://www.instagram.com/synaptex_global?igsh=M2RjZmwzdWFzbWEx&utm_source=qr",
+                "https://www.linkedin.com/company/108337837/admin/page-posts/published/",
+              ],
+              areaServed: "Worldwide",
+              knowsAbout: [
+                "Textile Sourcing",
+                "Supply Chain Management",
+                "Sustainable Textiles",
+                "Apparel Manufacturing",
+                "Home Textiles",
+              ],
+            }),
+          }}
+        />
+      </Helmet>
       <Container className="landing" fluid>
         <Nav
           onScrollToSection1={onScrollToSection1}

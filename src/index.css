@@ -136,3 +136,6 @@ body:not(.products-page) {
 body.products-page {
   background: #0f0e0e; /* or black */
 }
+
+.products-shell { visibility: hidden; }
+.products-shell.is-ready { visibility: visible; }

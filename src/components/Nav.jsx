@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../Nav.css";
 import { GiHamburgerMenu } from "react-icons/gi"; // Menu icon
 
@@ -26,9 +26,9 @@ const Nav = ({
       <Row className={`nav ${menuOpen ? "nav-open" : ""}`}>
         {/* Conditionally render About Us */}
         {!isFirefox && (
-          <button className="btn-12" onClick={() => navigate("/aboutus")}>
+          <Link to="/aboutus" className="btn-12">
             ABOUT US
-          </button>
+          </Link>
         )}
         <button className="btn-12" onClick={onScrollToSection1}>
           SERVICES
@@ -37,17 +37,17 @@ const Nav = ({
           WHY US
         </button>
 
-        <button className="btn-12" onClick={() => navigate("/products")}>
+        <Link to="/products" className="btn-12">
           PRODUCTS
-        </button>
+        </Link>
 
         <button className="btn-12" onClick={onScrollToSection3}>
           CERTIFICATIONS
         </button>
 
-        <button onClick={() => navigate("/contact")} className="btn-12">
+        <Link to="/contact" className="btn-12">
           CONTACT
-        </button>
+        </Link>
       </Row>
     </div>
   );

@@ -20,12 +20,13 @@ html, body {
   padding: 0;
   width: 100%;
   min-height: 100%;
-  overflow-x: hidden;
+ 
 }
 
 /* ================= Landing Section ================= */
 .landing {
   background: linear-gradient(90deg, #375d53, #1a1d1e);
+  overflow-x: clip;
 
 }
 

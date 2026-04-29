@@ -11,9 +11,10 @@ const section1Ref = useRef(null);
   const section3Ref = useRef(null);
   const section4Ref = useRef(null);
 
-   const handleScroll = (ref) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+const handleScroll = (ref) => {
+  const top = ref.current?.getBoundingClientRect().top + window.scrollY;
+  window.scrollTo({ top, behavior: 'smooth' });
+};
   return (
 
     <Router>

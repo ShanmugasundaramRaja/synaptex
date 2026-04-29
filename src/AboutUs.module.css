@@ -116,12 +116,14 @@ main.flex__col { width: 100%; justify-content: flex-start; }
 }
 
 @media (min-width: 750px) {
-  p {
+   .clip__cols p,
+  .clip__scroll p { background-color: rgba(248, 248, 248, 0.5);
     font-size: 1.3rem;
     background-color: rgba(248, 248, 248, 0.5);
     border-radius: 20px;
     padding: 10px;
   }
+  
   .menu a { font-size: 1rem; }
 }
 

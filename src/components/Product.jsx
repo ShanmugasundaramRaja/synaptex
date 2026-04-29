@@ -1,4 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 /**
  * IMPORTANT (required for FOUC fix):
@@ -49,21 +50,21 @@ function loadScript(src, { type = "text/javascript" } = {}) {
 
 export default function Product() {
   const shellRef = useRef(null);
+
+  // 1. Body class
   useLayoutEffect(() => {
     document.body.classList.add("products-page");
     return () => document.body.classList.remove("products-page");
   }, []);
 
-  // CSS + FOUC guard (single source of truth)
+  // 2. CSS + FOUC guard
   useLayoutEffect(() => {
     document.documentElement.className = "js";
     document.body.classList.add("loading");
     document.title = "Products";
 
-    // start hidden (FOUC guard)
     shellRef.current?.classList.remove("is-ready");
 
-    // viewport safety for SPA
     if (!document.querySelector('meta[name="viewport"]')) {
       const m = document.createElement("meta");
       m.name = "viewport";
@@ -74,10 +75,8 @@ export default function Product() {
     const typekitKey = "products-css:https://use.typekit.net/ccs0evy.css";
     const baseKey = "products-css:/css/base.css";
 
-    // Typekit can load in parallel (doesn't block reveal)
     loadStylesheetOnce("https://use.typekit.net/ccs0evy.css", typekitKey);
 
-    // Base CSS controls reveal
     const baseLink = loadStylesheetOnce("/css/base.css", baseKey);
 
     let cancelled = false;
@@ -86,28 +85,23 @@ export default function Product() {
       shellRef.current?.classList.add("is-ready");
     };
 
-    // If already applied (cached), reveal immediately
     if (baseLink.sheet) {
       reveal();
     } else {
       baseLink.addEventListener("load", reveal, { once: true });
-      baseLink.addEventListener("error", reveal, { once: true }); // fail open
+      baseLink.addEventListener("error", reveal, { once: true });
     }
 
     return () => {
       cancelled = true;
       document.body.classList.remove("loading");
-
-      // Route-only: remove CSS so it can't affect other pages
       document.querySelector(`link[data-key="${baseKey}"]`)?.remove();
       document.querySelector(`link[data-key="${typekitKey}"]`)?.remove();
-
-      // Also hide shell again (in case of fast remount)
       shellRef.current?.classList.remove("is-ready");
     };
   }, []);
 
-  // Load JS in the exact order from your HTML
+  // 3. Script loader
   useEffect(() => {
     let cancelled = false;
 
@@ -118,21 +112,27 @@ export default function Product() {
       await loadScript("/js/ScrollToPlugin.min.js");
       await loadScript("/js/SplitText.min.js");
       await loadScript("/js/imagesloaded.pkgd.min.js");
-      await loadScript("/js/index.js", { type: "module" });
+
+      document.querySelector('script[data-src="/js/index.js"]')?.remove();
+      await loadScript(`/js/index.js`, { type: "module" });
 
       if (cancelled) return;
+
+      // index.js won't re-run as a cached ES module on SPA navigation
+      // so we manually trigger init and remove the loading class here
+      document.body.classList.remove("loading");
+      if (window.__productInit) {
+        window.__productInit();
+      }
     };
 
     run().catch((e) => console.error("Product page scripts failed:", e));
 
     return () => {
       cancelled = true;
-
-      // Optional: if your /js/index.js can expose cleanup, call it:
-      // window.__PRODUCT_CLEANUP__?.();
+      document.querySelector('script[data-src="/js/index.js"]')?.remove();
     };
   }, []);
-
   return (
     <>
       <div ref={shellRef} className="products-shell">

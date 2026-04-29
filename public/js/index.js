@@ -5,14 +5,8 @@ import { preloadImages } from './utils.js';
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin, SplitText);
 
 // Initialize GSAP's ScrollSmoother for smooth scrolling and scroll-based effects
-const smoother = ScrollSmoother.create({
-  smooth: 1, // How long (in seconds) it takes to "catch up"
-  effects: true, // Enable data-speed and data-lag-based scroll effects
-  normalizeScroll: true, // Normalizes scroll behavior across browsers
-});
-
-// Reference to the container that wraps all the 3D scene elements
-const sceneWrapper = document.querySelector('.scene-wrapper');
+let smoother = null;
+let sceneWrapper = null;
 
 // Global flag to prevent multiple animations from overlapping or triggering at once
 let isAnimating = false;
@@ -481,7 +475,13 @@ const deactivatePreviewToCarousel = (e) => {
 
   gsap.set(sceneWrapper, { autoAlpha: 1 });
 
-  const progress = 0.5; // halfway
+  const timeline = carousel._timeline;
+const scrollTrigger = timeline?.scrollTrigger;
+const scrollTop = smoother.scrollTop();
+const start = scrollTrigger?.start ?? 0;
+const end = scrollTrigger?.end ?? 1;
+const progress = gsap.utils.clamp(0, 1, (scrollTop - start) / (end - start));
+ // halfway
   /*
   BUG: progress should always be 0.5 but for some reason it's 0 sometimes
   const timeline = carousel._timeline;
@@ -515,9 +515,9 @@ const deactivatePreviewToCarousel = (e) => {
       {
         z: -550,
         rotationX,
-        rotationY: -720,
+       rotationY: rotationY - 360,
         rotationZ,
-        yPercent: 300,
+        yPercent: 0,
       },
       {
         rotationY,
@@ -599,8 +599,29 @@ const init = () => {
 };
 
 // Start app once images are preloaded
-preloadImages('.grid__item-image').then(() => {
-  document.body.classList.remove('loading'); // Remove loading state from body
-  init(); // Begin initialization
-});
+// Replace everything at the bottom of index.js with this:
 
+window.__productInit = () => {
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin, SplitText);
+
+  isAnimating = false;
+  splitMap.clear();
+
+  if (ScrollSmoother.get()) {
+    ScrollSmoother.get().kill();
+  }
+
+  smoother = ScrollSmoother.create({   // ← assign to let variable
+    smooth: 1,
+    effects: true,
+    normalizeScroll: true,
+  });
+
+  sceneWrapper = document.querySelector('.scene-wrapper');  // ← re-query live DOM
+
+  preloadImages('.grid__item-image').then(() => {
+    document.body.classList.remove('loading');
+    init();
+    ScrollTrigger.refresh();
+  });
+};

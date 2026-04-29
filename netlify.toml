@@ -4,16 +4,12 @@
 
 [build.environment]
   NODE_VERSION = "22.16.0"
-  SECRETS_SCAN_ENABLED = "false"  # must be a string
+  SECRETS_SCAN_ENABLED = "false"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-  [build]
-  command = "npm run build"
-  publish = "build"
 
 [[plugins]]
   package = "@netlify/plugin-react-static"

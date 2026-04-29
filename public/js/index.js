@@ -619,9 +619,17 @@ window.__productInit = () => {
 
   sceneWrapper = document.querySelector('.scene-wrapper');  // ← re-query live DOM
 
-  preloadImages('.grid__item-image').then(() => {
-    document.body.classList.remove('loading');
-    init();
-    ScrollTrigger.refresh();
+preloadImages('.grid__item-image').then(() => {
+  init();              // positions carousels in 3D
+  ScrollTrigger.refresh();
+
+  // Wait for browser to paint the transformed carousel,
+  // then remove loader and reveal shell in the same frame
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      window.__shellReady?.();
+      document.body.classList.remove('loading');
+    });
   });
+});
 };

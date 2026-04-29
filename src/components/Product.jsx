@@ -50,6 +50,14 @@ function loadScript(src, { type = "text/javascript" } = {}) {
 
 export default function Product() {
   const shellRef = useRef(null);
+  useEffect(() => {
+    window.__shellReady = () => {
+      shellRef.current?.classList.add("is-ready");
+    };
+    return () => {
+      delete window.__shellReady;
+    };
+  }, []);
 
   // 1. Body class
   useLayoutEffect(() => {
@@ -79,21 +87,7 @@ export default function Product() {
 
     const baseLink = loadStylesheetOnce("/css/base.css", baseKey);
 
-    let cancelled = false;
-    const reveal = () => {
-      if (cancelled) return;
-      shellRef.current?.classList.add("is-ready");
-    };
-
-    if (baseLink.sheet) {
-      reveal();
-    } else {
-      baseLink.addEventListener("load", reveal, { once: true });
-      baseLink.addEventListener("error", reveal, { once: true });
-    }
-
     return () => {
-      cancelled = true;
       document.body.classList.remove("loading");
       document.querySelector(`link[data-key="${baseKey}"]`)?.remove();
       document.querySelector(`link[data-key="${typekitKey}"]`)?.remove();
@@ -120,7 +114,7 @@ export default function Product() {
 
       // index.js won't re-run as a cached ES module on SPA navigation
       // so we manually trigger init and remove the loading class here
-      document.body.classList.remove("loading");
+
       if (window.__productInit) {
         window.__productInit();
       }

@@ -4,6 +4,16 @@ import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
 import { useRef } from "react";
 import AboutUs from "./components/AboutUs";
 import Product from "./components/Product";
+import { useLocation } from "react-router-dom";
+import {useEffect } from "react";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 function App() {
 const section1Ref = useRef(null);
@@ -18,6 +28,7 @@ const handleScroll = (ref) => {
   return (
 
     <Router>
+       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Landing 
         onScrollToSection1={() => handleScroll(section1Ref)}
